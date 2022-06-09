@@ -1,0 +1,6 @@
+# Visual Studio files
+.vs
+
+# Compilation files
+Debug
+Release
