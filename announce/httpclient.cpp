@@ -1,13 +1,3 @@
-//----------------------------------------------------
-//
-//	HTTP/1.0 Client Procedures.
-//	(c) 2002-2005 Kye Bitossi
-//
-//  Basic web document fetcher.
-//
-//  Version: $Id: httpclient.cpp,v 1.4 2006/05/03 17:32:37 kyeman Exp $
-//
-//----------------------------------------------------
 
 #include <stdio.h>
 #include <string.h>
@@ -30,10 +20,18 @@
 
 //----------------------------------------------------
 
-CHttpClient::CHttpClient()
+CHttpClient::CHttpClient(char *szBindAddress)
 {
 	memset(&m_Request,0,sizeof(HTTP_REQUEST));
 	memset(&m_Response,0,sizeof(HTTP_RESPONSE));
+
+	m_bHasBindAddress = 0;
+	memset(m_szBindAddress,0,sizeof(m_szBindAddress));
+	if(szBindAddress) {
+		m_bHasBindAddress = 1;
+		strcpy(m_szBindAddress,szBindAddress);
+	}
+
 	m_iError = HTTP_SUCCESS; // Request is successful until otherwise indicated
 	m_iSocket = (-1);
 
@@ -99,10 +97,12 @@ bool CHttpClient::GetHeaderValue(char *szHeaderName,char *szReturnBuffer, int iB
 
 //----------------------------------------------------
 
-bool CHttpClient::Connect(char *szHost, int iPort)
+bool CHttpClient::Connect(char *szHost, int iPort, char *szBindAddress)
 {
 	struct sockaddr_in	sa;
+	struct sockaddr_in	bind_sa;
 	struct hostent		*hp;
+	struct hostent		*bind_hp;
 
 	// Hostname translation
 	if((hp=(struct hostent *)gethostbyname(szHost)) == NULL ) {
@@ -112,12 +112,28 @@ bool CHttpClient::Connect(char *szHost, int iPort)
 
 	// Prepare a socket	
 	memset(&sa,0,sizeof(sa));
+	memset(&bind_sa,0,sizeof(bind_sa));
 	memcpy(&sa.sin_addr,hp->h_addr,hp->h_length);
 	sa.sin_family = hp->h_addrtype;
 	sa.sin_port = htons((unsigned short)iPort);
 
+	if(szBindAddress) {
+		if((bind_hp=(struct hostent *)gethostbyname(szBindAddress)) == NULL ) {
+			m_iError=HTTP_ERROR_BAD_HOST;
+			return false;
+		}
+		memcpy(&bind_sa.sin_addr,bind_hp->h_addr,bind_hp->h_length);
+		bind_sa.sin_family = bind_hp->h_addrtype;
+		bind_sa.sin_port = 0;
+	}
+
 	if((m_iSocket=socket(AF_INET,SOCK_STREAM,0)) < 0) {
 		m_iError=HTTP_ERROR_NO_SOCKET;
+		return false;
+	}
+
+	if(szBindAddress && bind(m_iSocket,(struct sockaddr *)&bind_sa,sizeof bind_sa) < 0) {
+		m_iError=HTTP_ERROR_CANT_CONNECT;
 		return false;
 	}
 
@@ -220,8 +236,15 @@ void CHttpClient::Process()
 	int   header_len;
 	char  request_head[16384];
 
-	if(!Connect(m_Request.host,m_Request.port)) {
-		return;
+	if(m_bHasBindAddress) {
+		if(!Connect(m_Request.host,m_Request.port,m_szBindAddress)) {
+			return;
+		}
+	}
+	else {
+		if(!Connect(m_Request.host,m_Request.port,NULL)) {
+			return;
+		}
 	}
 
 	// Build the HTTP Header

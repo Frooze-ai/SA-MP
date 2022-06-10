@@ -1,11 +1,3 @@
-//----------------------------------------------------------
-//
-// SA:MP Multiplayer Modification For GTA:SA
-// Copyright 2004-2005 SA:MP team
-//
-// Version: $Id: announce.cpp,v 1.4 2006/05/03 17:32:37 kyeman Exp $
-//
-//----------------------------------------------------------
 
 #ifdef WIN32
 #include <windows.h>
@@ -22,12 +14,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 {
 	if(!strlen(lpszCmdLine) || strlen(lpszCmdLine) > 5)	return 0;
 
-	CHttpClient* pHttpClient = new CHttpClient;
+	CHttpClient* pHttpClient = new CHttpClient(NULL);
 
 	//OutputDebugString(lpszCmdLine);
 
-	char szURL[255];
-	sprintf(szURL, "server.sa-mp.com/0.2.X/announce/%s",lpszCmdLine);
+	char szURL[1025];
+	memset(szURL,0,sizeof(szURL));
+	sprintf(szURL, "server.sa-mp.com/0.3.7/announce/%s",lpszCmdLine);
 	
 	pHttpClient->ProcessURL(HTTP_GET, szURL, NULL, "Bonus");
 
@@ -42,12 +35,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 int main(int argc, char *argv[])
 {
-	if((argc != 2) || strlen(argv[1]) > 5)	return 0;
+	char *szBindAddress = NULL;
 
-	CHttpClient* pHttpClient = new CHttpClient;
+	if((argc <= 1 || argc > 3) || strlen(argv[1]) > 5)	return 0;
+
+	if(argc == 3)
+		szBindAddress = argv[2];
+
+	CHttpClient* pHttpClient = new CHttpClient(szBindAddress);
 
 	char szURL[255];
-	sprintf(szURL, "server.sa-mp.com/0.2.X/announce/%s",argv[1]);
+	sprintf(szURL, "server.sa-mp.com/0.3.7/announce/%s",argv[1]);
 	
 	pHttpClient->ProcessURL(HTTP_GET, szURL, NULL, "Bonus");
 

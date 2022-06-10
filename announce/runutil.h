@@ -1,11 +1,3 @@
-//----------------------------------------------------
-//
-//	Utility and runtime procedures header
-//	(c) 2005 Kye Bitossi
-//
-//  Version: $Id: runutil.h,v 1.1 2006/05/03 10:53:37 kyeman Exp $
-//
-//----------------------------------------------------
 
 
 void Util_UrlUnencode(char *enc);

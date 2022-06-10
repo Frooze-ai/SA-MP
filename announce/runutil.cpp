@@ -1,11 +1,3 @@
-//----------------------------------------------------
-//
-//	Utility runtime procedures
-//	(c) 2005 Kye Bitossi
-//
-//  Version: $Id: runutil.cpp,v 1.1 2006/05/03 10:53:37 kyeman Exp $
-// 
-//----------------------------------------------------
 
 #include <stdio.h>
 #include <string.h>
@@ -248,7 +240,7 @@ return;
 
 //----------------------------------------------------
 
-void K_EncodeString(char *szInput, char *szOutput)
+/*void K_EncodeString(char* szInput, char* szOutput)
 {
 	char b;
 
@@ -262,11 +254,11 @@ void K_EncodeString(char *szInput, char *szOutput)
 		szOutput++;
 	}
 	*szOutput = 0;
-}
+}*/
 
 //----------------------------------------------------
 
-char * K_DecodeString(char *szInput)
+/*char* K_DecodeString(char* szInput)
 {
 	char b;
 	char *st = szInput;
@@ -281,7 +273,7 @@ char * K_DecodeString(char *szInput)
 	}
 
 	return st;
-}
+}*/
 
 //----------------------------------------------------
 
