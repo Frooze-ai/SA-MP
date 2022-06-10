@@ -19,6 +19,7 @@
 #ifdef _WIN32
 //#include <Shlwapi.h>
 #include <process.h>
+#include <stdio.h>
 #else
 #ifdef _COMPATIBILITY_2
 #include "Compatibility2Includes.h"
