@@ -1,9 +1,10 @@
 object fmMasterUpdate: TfmMasterUpdate
-  Left = 452
-  Top = 328
-  Width = 308
-  Height = 130
+  Left = 489
+  Top = 332
+  BorderStyle = bsNone
   Caption = 'Master Server Update'
+  ClientHeight = 103
+  ClientWidth = 300
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +12,7 @@ object fmMasterUpdate: TfmMasterUpdate
   Font.Name = 'Verdana'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object lblPleaseWait: TLabel
@@ -22,9 +24,9 @@ object fmMasterUpdate: TfmMasterUpdate
     AutoSize = False
     Caption = 'Please Wait'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBtnText
     Font.Height = -11
-    Font.Name = 'Verdana'
+    Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
   end
@@ -36,5 +38,11 @@ object fmMasterUpdate: TfmMasterUpdate
     Alignment = taCenter
     AutoSize = False
     Caption = 'Retrieving list from master server...'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBtnText
+    Font.Height = -11
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
 end
