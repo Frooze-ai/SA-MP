@@ -87,8 +87,9 @@ extern void ApplyDebugLevelPatches();
 // polls the game until it's able to run.
 void LaunchMonitor(PVOID v)
 {
-	pGame = new CGame();
-	pGame->InitGame();
+	if(pGame) {
+		pGame->InitGame();
+	}
 
 	while(1) {
 		if(*(PDWORD)ADDR_ENTRY == 7) {
@@ -139,6 +140,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			OutputDebugString("Installing filesystem hooks.");
 
 			InstallFileSystemHooks();
+
+			pGame = new CGame();
 
 			_beginthread(LaunchMonitor,0,NULL);	
 			OutputDebugString("SA:MP Inited\n");			
