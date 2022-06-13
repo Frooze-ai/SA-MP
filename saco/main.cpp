@@ -140,6 +140,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			OutputDebugString("Installing filesystem hooks.");
 
 			InstallFileSystemHooks();
+			InstallShowCursorHook();
 
 			pGame = new CGame();
 

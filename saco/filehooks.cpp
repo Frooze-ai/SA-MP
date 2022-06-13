@@ -26,6 +26,7 @@ def_CreateFileW Real_CreateFileW = NULL;
 def_ReadFile Real_ReadFile = NULL;
 def_CloseHandle Real_CloseHandle = NULL;
 def_GetFileType Real_GetFileType = NULL;
+def_ShowCursor Real_ShowCursor = NULL;
 def_GetAsyncKeyState Real_GetAsyncKeyState = NULL;
 def_GetModuleHandleA Real_GetModuleHandleA = NULL;
 
@@ -366,6 +367,23 @@ HMODULE WINAPI Arch_GetModuleHandleA(LPCTSTR lpszModule)
 
 //----------------------------------------------------------
 
+int WINAPI Arch_ShowCursor( BOOL bShow )
+{
+	if (bShow != FALSE) return 0;
+	return -1;
+}
+
+//----------------------------------------------------------
+
+void InstallShowCursorHook()
+{
+	Real_ShowCursor = (def_ShowCursor)DetourFunction(
+		(PBYTE)DetourFindFunction("user32.dll", "ShowCursor"),
+		(PBYTE)Arch_ShowCursor);
+}
+
+//----------------------------------------------------------
+
 void InstallFileSystemHooks()
 {
 	BYTE szKernel32Enc[13] = {0x6D,0xAC,0x4E,0xCD,0xAC,0x8D,0x66,0x46,0xC5,0x8C,0x8D,0x8D,0}; // kernel32.dll
@@ -444,6 +462,7 @@ void UninstallFileSystemHooks()
 		DetourRemove((PBYTE)Real_GetFileType,(PBYTE)Arch_GetFileType);
 		//DetourRemove((PBYTE)Real_GetModuleHandleA,(PBYTE)Arch_GetModuleHandleA);
 		//DetourRemove((PBYTE)Real_GetAsyncKeyState,(PBYTE)Arch_GetAsyncKeyState);
+		DetourRemove((PBYTE)Real_ShowCursor,(PBYTE)Arch_ShowCursor);
 		bFileHooksInstalled = FALSE;
 	}
 }

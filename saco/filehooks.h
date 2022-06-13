@@ -11,6 +11,7 @@
 
 void InstallFileSystemHooks();
 void UninstallFileSystemHooks();
+void InstallShowCursorHook();
 
 #define MAX_OPEN_ARCH_FILES		50
 
@@ -39,5 +40,7 @@ typedef DWORD (WINAPI *def_GetFileType)(HANDLE);
 typedef HMODULE (WINAPI *def_GetModuleHandleA)(LPCTSTR);
 
 typedef SHORT (WINAPI *def_GetAsyncKeyState)(INT);
+
+typedef int (WINAPI *def_ShowCursor)(BOOL);
 
 //----------------------------------------------------------
