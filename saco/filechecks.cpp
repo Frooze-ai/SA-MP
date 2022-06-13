@@ -14,7 +14,7 @@
 
 extern CFileSystem *pFileSystem;
 
-void MarkAsModdedGame();
+//void MarkAsModdedGame();
 
 DWORD WINAPI Arch_SetFilePointer( HANDLE hFile,LONG lDistanceToMove,
 								  PLONG lpDistanceToMoveHigh,DWORD dwMoveMethod );
@@ -84,7 +84,7 @@ void CheckFileHash(int dwFileHash, HANDLE hFile)
 		if (i >= byteCount)
 		{
 			// IPL/IDL loaded not in the official list
-			MarkAsModdedGame();
+			//MarkAsModdedGame();
 			return;
 		}
 #endif
@@ -127,7 +127,7 @@ void CheckFileHash(int dwFileHash, HANDLE hFile)
 			{
 				// Tell main that there's a mod
 #ifndef _DEBUG
-				MarkAsModdedGame();
+				//MarkAsModdedGame();
 				break;
 #endif
 			}
