@@ -599,6 +599,12 @@
     <ClInclude Include="..\raknet\SystemDatabaseClient.h">
       <Filter>raknet</Filter>
     </ClInclude>
+    <ClInclude Include="sha1.h">
+      <Filter>general</Filter>
+    </ClInclude>
+    <ClInclude Include="checksums.h">
+      <Filter>general</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="archive\ArchiveFS.cpp">
@@ -991,6 +997,12 @@
     </ClCompile>
     <ClCompile Include="..\raknet\SystemDatabaseServer.cpp">
       <Filter>raknet</Filter>
+    </ClCompile>
+    <ClCompile Include="sha1.cpp">
+      <Filter>general</Filter>
+    </ClCompile>
+    <ClCompile Include="checksums.cpp">
+      <Filter>general</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

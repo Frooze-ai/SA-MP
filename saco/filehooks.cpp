@@ -15,6 +15,8 @@
 #include "filechecks.h"
 #include "outputdebugstring.h"
 #include "runutil.h"
+#include "checksums.h"
+#include "game/game.h"
 
 //----------------------------------------------------------
 
@@ -31,6 +33,7 @@ def_GetAsyncKeyState Real_GetAsyncKeyState = NULL;
 def_GetModuleHandleA Real_GetModuleHandleA = NULL;
 
 extern CFileSystem *pFileSystem;
+extern CGame *pGame;
 
 ARCH_FILE_RECORD	OpenArchRecords[MAX_OPEN_ARCH_FILES];
 BOOL				bArchRecordSlotState[MAX_OPEN_ARCH_FILES];
@@ -38,9 +41,15 @@ BOOL				bArchRecordSlotState[MAX_OPEN_ARCH_FILES];
 BOOL bFileHooksInstalled = FALSE;
 int iCustomHandle=CUSTOM_HANDLE_BASE;
 
+DWORD dwHandlingDigest[] = { 0x11C714FD,0x0A46694E,0x7AEC2920,0x2100E2E4,0x94F7372E }; // handling.cfg
+DWORD dwWeaponDigest[] = { 0x0B85A2AD,0x344BDAE1,0xA19471D5,0x7D49D3E9,0x7DDE6CBE }; // weapon.dat
+DWORD dwMeleeDigest[] = { 0x7C425B89,0xF67763C0,0xA2E49F0E,0x93EBF8D2,0x0E842901 }; // melee.dat
+
 char * FileNameOnly(char *sz);
 char * ExtensionOnly(char *sz);
 char* strtolower(char* sz);
+
+void CountArchFileRequest(unsigned int *digest);
 
 //----------------------------------------------------------
 
@@ -133,6 +142,12 @@ HANDLE WINAPI Arch_CreateFileA( LPCTSTR lpFileName,DWORD dwDesiredAccess,
 		OutputDebugString(s);
 		*/
 
+		CHAR szFileName[MAX_PATH];
+		unsigned int uiDigest[5];
+		strcpy(szFileName, FileNameOnly((PCHAR)lpFileName));
+		strtolower(szFileName);
+		sha1(szFileName, strlen(szFileName), uiDigest);
+		CountArchFileRequest(uiDigest);
 	}
 	else
 	{
@@ -140,10 +155,11 @@ HANDLE WINAPI Arch_CreateFileA( LPCTSTR lpFileName,DWORD dwDesiredAccess,
 		ret = Real_CreateFileA(lpFileName,dwDesiredAccess,dwShareMode,
 			lpSecurityAttributes,dwCreationDisposition,dwFlagsAndAttributes,hTemplateFile);
 
+		/*
 		if (IsCheckableFile(ExtensionOnly((PCHAR)lpFileName)))
 		{
 			CheckFileHash(GetFileNameHash(strtolower(FileNameOnly((PCHAR)lpFileName))), ret);
-		}
+		}*/
 	}
 	
 	return ret;
@@ -520,6 +536,41 @@ char* strtolower(char* sz)
 		sz++;
 	}
 	return ret;
+}
+
+//----------------------------------------------------------
+
+void CountArchFileRequest(unsigned int *digest)
+{
+	if( digest[0] == dwHandlingDigest[0] &&
+		digest[1] == dwHandlingDigest[1] &&
+		digest[2] == dwHandlingDigest[2] &&
+		digest[3] == dwHandlingDigest[3] &&
+		digest[4] == dwHandlingDigest[4] )
+	{
+		if (pGame)
+			pGame->IncreaseArchFileRequest();
+	}
+
+	if( digest[0] == dwWeaponDigest[0] &&
+		digest[1] == dwWeaponDigest[1] &&
+		digest[2] == dwWeaponDigest[2] &&
+		digest[3] == dwWeaponDigest[3] &&
+		digest[4] == dwWeaponDigest[4] )
+	{
+		if (pGame)
+			pGame->IncreaseArchFileRequest();
+	}
+
+	if( digest[0] == dwMeleeDigest[0] &&
+		digest[1] == dwMeleeDigest[1] &&
+		digest[2] == dwMeleeDigest[2] &&
+		digest[3] == dwMeleeDigest[3] &&
+		digest[4] == dwMeleeDigest[4] )
+	{
+		if (pGame)
+			pGame->IncreaseArchFileRequest();
+	}
 }
 
 //----------------------------------------------------------

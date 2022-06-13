@@ -197,6 +197,7 @@
     <ClInclude Include="archive\TinyEncrypt.h" />
     <ClInclude Include="buildinfo.h" />
     <ClInclude Include="chatwindow.h" />
+    <ClInclude Include="checksums.h" />
     <ClInclude Include="cmdprocs.h" />
     <ClInclude Include="cmdwindow.h" />
     <ClInclude Include="d3d9\common\dxstdafx.h" />
@@ -270,6 +271,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="runutil.h" />
     <ClInclude Include="scoreboard.h" />
+    <ClInclude Include="sha1.h" />
     <ClInclude Include="spawnscreen.h" />
     <ClInclude Include="svrnetstats.h" />
   </ItemGroup>
@@ -526,6 +528,7 @@
     <ClCompile Include="archive\Signer.cpp" />
     <ClCompile Include="archive\TinyEncrypt.cpp" />
     <ClCompile Include="chatwindow.cpp" />
+    <ClCompile Include="checksums.cpp" />
     <ClCompile Include="cmdprocs.cpp" />
     <ClCompile Include="cmdwindow.cpp" />
     <ClCompile Include="d3d9\common\dxstdafx.cpp" />
@@ -585,6 +588,7 @@
     <ClCompile Include="playertags.cpp" />
     <ClCompile Include="runutil.cpp" />
     <ClCompile Include="scoreboard.cpp" />
+    <ClCompile Include="sha1.cpp" />
     <ClCompile Include="spawnscreen.cpp" />
     <ClCompile Include="subclass.cpp" />
     <ClCompile Include="svrnetstats.cpp" />

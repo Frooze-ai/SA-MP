@@ -36,6 +36,8 @@ CGame::CGame()
 	m_bCheckpointsEnabled = FALSE;
 	m_bRaceCheckpointsEnabled = FALSE;
 	m_dwRaceCheckpointHandle = NULL;
+
+	m_dwArchFileOpenCount = 0;
 }
 
 //-----------------------------------------------------------
