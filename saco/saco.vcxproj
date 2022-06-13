@@ -274,67 +274,250 @@
     <ClInclude Include="svrnetstats.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\raknet\AsynchronousFileIO.cpp" />
-    <ClCompile Include="..\raknet\BitStream.cpp" />
-    <ClCompile Include="..\raknet\BitStream_NoTemplate.cpp" />
-    <ClCompile Include="..\raknet\CheckSum.cpp" />
-    <ClCompile Include="..\raknet\CommandParserInterface.cpp" />
-    <ClCompile Include="..\raknet\ConnectionGraph.cpp" />
-    <ClCompile Include="..\raknet\ConsoleServer.cpp" />
-    <ClCompile Include="..\raknet\DataBlockEncryptor.cpp" />
-    <ClCompile Include="..\raknet\DataCompressor.cpp" />
-    <ClCompile Include="..\raknet\DirectoryDeltaTransfer.cpp" />
-    <ClCompile Include="..\raknet\DS_ByteQueue.cpp" />
-    <ClCompile Include="..\raknet\DS_HuffmanEncodingTree.cpp" />
-    <ClCompile Include="..\raknet\DS_Table.cpp" />
-    <ClCompile Include="..\raknet\EmailSender.cpp" />
-    <ClCompile Include="..\raknet\EncodeClassName.cpp" />
-    <ClCompile Include="..\raknet\ExtendedOverlappedPool.cpp" />
-    <ClCompile Include="..\raknet\FileList.cpp" />
-    <ClCompile Include="..\raknet\FileListTransfer.cpp" />
-    <ClCompile Include="..\raknet\FileOperations.cpp" />
-    <ClCompile Include="..\raknet\FullyConnectedMesh.cpp" />
-    <ClCompile Include="..\raknet\GetTime.cpp" />
-    <ClCompile Include="..\raknet\InternalPacketPool.cpp" />
-    <ClCompile Include="..\raknet\LightweightDatabaseClient.cpp" />
-    <ClCompile Include="..\raknet\LightweightDatabaseCommon.cpp" />
-    <ClCompile Include="..\raknet\LightweightDatabaseServer.cpp" />
-    <ClCompile Include="..\raknet\LinuxStrings.cpp" />
-    <ClCompile Include="..\raknet\LogCommandParser.cpp" />
-    <ClCompile Include="..\raknet\NatPunchthrough.cpp" />
-    <ClCompile Include="..\raknet\NetworkIDGenerator.cpp" />
-    <ClCompile Include="..\raknet\NetworkTypes.cpp" />
-    <ClCompile Include="..\raknet\PacketConsoleLogger.cpp" />
-    <ClCompile Include="..\raknet\PacketFileLogger.cpp" />
-    <ClCompile Include="..\raknet\PacketLogger.cpp" />
-    <ClCompile Include="..\raknet\PluginInterface.cpp" />
-    <ClCompile Include="..\raknet\RakClient.cpp" />
-    <ClCompile Include="..\raknet\RakNetCommandParser.cpp" />
-    <ClCompile Include="..\raknet\RakNetStatistics.cpp" />
-    <ClCompile Include="..\raknet\RakNetTransport.cpp" />
-    <ClCompile Include="..\raknet\RakNetworkFactory.cpp" />
-    <ClCompile Include="..\raknet\RakPeer.cpp" />
-    <ClCompile Include="..\raknet\RakServer.cpp" />
-    <ClCompile Include="..\raknet\RakSleep.cpp" />
-    <ClCompile Include="..\raknet\Rand.cpp" />
-    <ClCompile Include="..\raknet\ReliabilityLayer.cpp" />
-    <ClCompile Include="..\raknet\ReplicaManager.cpp" />
-    <ClCompile Include="..\raknet\rijndael.cpp" />
-    <ClCompile Include="..\raknet\Router.cpp" />
-    <ClCompile Include="..\raknet\RPCMap.cpp" />
-    <ClCompile Include="..\raknet\SHA1.cpp" />
-    <ClCompile Include="..\raknet\SimpleMutex.cpp" />
-    <ClCompile Include="..\raknet\SocketLayer.cpp" />
-    <ClCompile Include="..\raknet\StringCompressor.cpp" />
-    <ClCompile Include="..\raknet\StringTable.cpp" />
-    <ClCompile Include="..\raknet\SystemAddressList.cpp" />
-    <ClCompile Include="..\raknet\SystemDatabaseClient.cpp" />
-    <ClCompile Include="..\raknet\SystemDatabaseServer.cpp" />
-    <ClCompile Include="..\raknet\TableSerializer.cpp" />
-    <ClCompile Include="..\raknet\TCPInterface.cpp" />
-    <ClCompile Include="..\raknet\TEABlockEncryptor.cpp" />
-    <ClCompile Include="..\raknet\TelnetTransport.cpp" />
-    <ClCompile Include="..\raknet\_findfirst.cpp" />
+    <ClCompile Include="..\raknet\AsynchronousFileIO.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\BitStream.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\BitStream_NoTemplate.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\CheckSum.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\CommandParserInterface.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\ConnectionGraph.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\ConsoleServer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\DataBlockEncryptor.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\DataCompressor.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\DirectoryDeltaTransfer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\DS_ByteQueue.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\DS_HuffmanEncodingTree.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\DS_Table.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\EmailSender.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\EncodeClassName.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\ExtendedOverlappedPool.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\FileList.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\FileListTransfer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\FileOperations.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\FullyConnectedMesh.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\GetTime.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\InternalPacketPool.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\LightweightDatabaseClient.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\LightweightDatabaseCommon.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\LightweightDatabaseServer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\LinuxStrings.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\LogCommandParser.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\NatPunchthrough.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\NetworkIDGenerator.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\NetworkTypes.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\PacketConsoleLogger.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\PacketFileLogger.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\PacketLogger.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\PluginInterface.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakClient.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakNetCommandParser.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakNetStatistics.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakNetTransport.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakNetworkFactory.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakPeer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakServer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RakSleep.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\Rand.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\ReliabilityLayer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\ReplicaManager.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\rijndael.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\Router.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\RPCMap.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\SHA1.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\SimpleMutex.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\SocketLayer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\StringCompressor.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\StringTable.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\SystemAddressList.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\SystemDatabaseClient.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\SystemDatabaseServer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\TableSerializer.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\TCPInterface.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\TEABlockEncryptor.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\TelnetTransport.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\raknet\_findfirst.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)raknet\</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)raknet\</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="archive\ArchiveFS.cpp" />
     <ClCompile Include="archive\CryptoContext.cpp" />
     <ClCompile Include="archive\CryptoFns.cpp" />
