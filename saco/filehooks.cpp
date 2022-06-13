@@ -333,6 +333,7 @@ DWORD WINAPI Arch_GetFileType( HANDLE hFile )
 
 //----------------------------------------------------------
 
+/*
 DWORD dwCaller=0;
 char dbgmsg[256];
 
@@ -345,10 +346,11 @@ SHORT WINAPI Arch_GetAsyncKeyState( int hKey )
 	OutputDebugStringA(dbgmsg);
 
 	return Real_GetAsyncKeyState(hKey);
-}
+}*/
 
 //----------------------------------------------------------
 
+/*
 HMODULE WINAPI Arch_GetModuleHandleA(LPCTSTR lpszModule)
 {
 	//sprintf(dbgmsg,"GetModuleHandleA(%s)",lpszModule);
@@ -360,7 +362,7 @@ HMODULE WINAPI Arch_GetModuleHandleA(LPCTSTR lpszModule)
 	}
 
     return Real_GetModuleHandleA(lpszModule);
-}
+}*/
 
 //----------------------------------------------------------
 
@@ -375,7 +377,7 @@ void InstallFileSystemHooks()
 	BYTE szSetFilePointerEnc[15] = {0x6A,0xAC,0x8E,0xC8,0x2D,0x8D,0xAC,0xA,0xED,0x2D,0xCD,0x8E,0xAC,0x4E,0}; // SetFilePointer
 	BYTE szCloseHandleEnc[12] = {0x68,0x8D,0xED,0x6E,0xAC,0x9,0x2C,0xCD,0x8C,0x8D,0xAC,0}; // CloseHandle
 	BYTE szGetFileTypeEnc[12] = {0xE8,0xAC,0x8E,0xC8,0x2D,0x8D,0xAC,0x8A,0x2F,0xE,0xAC,0}; // GetFileType
-	BYTE szGetModuleHandleAEnc[17] = {0xE8,0xAC,0x8E,0xA9,0xED,0x8C,0xAE,0x8D,0xAC,0x9,0x2C,0xCD,0x8C,0x8D,0xAC,0x28,0}; // GetModuleHandleA
+	//BYTE szGetModuleHandleAEnc[17] = {0xE8,0xAC,0x8E,0xA9,0xED,0x8C,0xAE,0x8D,0xAC,0x9,0x2C,0xCD,0x8C,0x8D,0xAC,0x28,0}; // GetModuleHandleA
 
 	if(!bFileHooksInstalled) {
 		OutputDebugString("Installing File System Hooks");
@@ -415,9 +417,10 @@ void InstallFileSystemHooks()
 			(PBYTE)DetourFindFunction(szKernel32Dec, K_DecodeString(szGetFileTypeEnc)),
 			(PBYTE)Arch_GetFileType);
 
+		/*
 		Real_GetModuleHandleA = (def_GetModuleHandleA)DetourFunction(
 			(PBYTE)DetourFindFunction(szKernel32Dec, K_DecodeString(szGetModuleHandleAEnc)),
-			(PBYTE)Arch_GetModuleHandleA);
+			(PBYTE)Arch_GetModuleHandleA);*/
 
 		/*
 		Real_GetAsyncKeyState = (def_GetAsyncKeyState)DetourFunction(
@@ -439,7 +442,7 @@ void UninstallFileSystemHooks()
 		DetourRemove((PBYTE)Real_SetFilePointer,(PBYTE)Arch_SetFilePointer);
 		DetourRemove((PBYTE)Real_CloseHandle,(PBYTE)Arch_CloseHandle);
 		DetourRemove((PBYTE)Real_GetFileType,(PBYTE)Arch_GetFileType);
-		DetourRemove((PBYTE)Real_GetModuleHandleA,(PBYTE)Arch_GetModuleHandleA);
+		//DetourRemove((PBYTE)Real_GetModuleHandleA,(PBYTE)Arch_GetModuleHandleA);
 		//DetourRemove((PBYTE)Real_GetAsyncKeyState,(PBYTE)Arch_GetAsyncKeyState);
 		bFileHooksInstalled = FALSE;
 	}
