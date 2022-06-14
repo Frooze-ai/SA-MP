@@ -71,6 +71,8 @@ CHttpClient::~CHttpClient()
 
 int CHttpClient::ProcessURL(int iType, char *szURL, char *szPostData, char *szReferer)
 {
+	printf("CHttpClient::ProcessURL %s\n", szURL);
+
 	InitRequest(iType,szURL,szPostData,szReferer);
 
 	Process();
@@ -276,7 +278,7 @@ void CHttpClient::Process()
 
 //----------------------------------------------------
 
-#define RECV_BUFFER_SIZE 2048
+#define RECV_BUFFER_SIZE 4096
 
 void CHttpClient::HandleEntity()
 {
