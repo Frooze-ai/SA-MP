@@ -60,7 +60,7 @@ CDXUTDialog					*pGameUI=NULL;
 
 BOOL SubclassGameWindow();
 void SetupCommands();
-void TheGameLoop();
+//void TheGameLoop();
 void TheGraphicsLoop();
 void MarkAsModdedGame();
 void GameDebugDrawDebugScreens();
@@ -122,7 +122,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			SetProcessAffinityMask(GetCurrentProcess(),1);
 
 			SetUnhandledExceptionFilter(exc_handler);
-			dwGameLoop = (DWORD)TheGameLoop;
+			//dwGameLoop = (DWORD)TheGameLoop;
 			dwGraphicsLoop = (DWORD)TheGraphicsLoop;
 
 			OutputDebugString("Loading Archive");
@@ -416,7 +416,7 @@ void TheGraphicsLoop()
 
 //----------------------------------------------------
 
-void TheGameLoop()
+/*void TheGameLoop()
 {	
 	_asm pushad
 
@@ -425,7 +425,7 @@ void TheGameLoop()
 	//OutputDebugString("---- New Frame ----");
 
 	_asm popad
-}
+}*/
 
 //----------------------------------------------------
 
