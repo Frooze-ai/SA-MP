@@ -108,6 +108,11 @@ public:
 	void StopJetpack();
 	BOOL IsInJetpackMode();
 
+	void StartGoggles();
+	void StopGoggles();
+	BOOL HasGoggles();
+	//int  GetGoggleType();
+
 	BOOL StartPassengerDriveByMode();
 
 	void SetCollisionChecking(int iCheck);
@@ -177,6 +182,7 @@ public:
 	DWORD		m_dwParachuteObject;
 	int			m_iParachuteAnim;
 	
+	BOOL		m_bGoggleState;
 	int			m_iDancingState;
 	int			m_iDancingAnim;
 

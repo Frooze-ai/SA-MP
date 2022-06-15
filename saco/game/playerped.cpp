@@ -55,6 +55,7 @@ CPlayerPed::CPlayerPed()
 	m_dwParachuteObject = 0;
 	m_iDanceState = 0;
 	m_iCellPhoneEnabled = 0;
+	m_bGoggleState = FALSE;
 
 	m_iPissingState = 0;
 	m_dwPissParticlesHandle = 0;
@@ -97,6 +98,7 @@ CPlayerPed::CPlayerPed(int iPlayerNumber, int iSkin, float fX, float fY,float fZ
 	m_iParachuteState = 0;
 	m_dwParachuteObject = 0;
 	m_iCellPhoneEnabled = 0;
+	m_bGoggleState = FALSE;
 
 	m_iDanceState = 0;
 
@@ -1142,6 +1144,56 @@ BOOL CPlayerPed::IsInJetpackMode()
 
 	return FALSE;
 }
+
+//-----------------------------------------------------------
+
+void CPlayerPed::StartGoggles()
+{
+	if (HasGoggles()) return;
+	if (FindWeaponSlot( 44 ) == NULL && FindWeaponSlot( 45 ) == NULL)
+		GiveWeapon( 44, 1 ); // Prevents crashing due to lack of animations.
+
+	CTaskGoggles* pGoggles = new CTaskGoggles();
+	pGoggles->ApplyToPed( this );
+	m_bGoggleState = TRUE;
+}
+
+//-----------------------------------------------------------
+
+void CPlayerPed::StopGoggles()
+{
+	if (!m_pPed || !HasGoggles()) return;
+
+	m_bGoggleState = FALSE;
+	DWORD dwPedPointer = (DWORD)m_pPed;
+	_asm mov ecx, dwPedPointer
+	_asm mov eax, 0x5E6010
+	_asm call eax
+}
+
+//-----------------------------------------------------------
+
+BOOL CPlayerPed::HasGoggles()
+{
+	if (!m_pPed) return FALSE;
+	return (BOOL)(m_pPed->dwActiveVision != 0 || m_bGoggleState);
+}
+
+//-----------------------------------------------------------
+
+/*
+int CPlayerPed::GetGoggleType()
+{
+	if (!m_pPed) return SPECIAL_ACTION_NONE;
+	if (!HasGoggles()) return SPECIAL_ACTION_NONE;
+
+	if (m_pPed->dwActiveVision == 0xC402B8)
+		return SPECIAL_ACTION_NIGHTVISION;
+	if (m_pPed->dwActiveVision == 0xC402B9)
+		return SPECIAL_ACTION_THERMALVISION;
+	
+	return SPECIAL_ACTION_NONE;
+}*/
 
 //-----------------------------------------------------------
 
