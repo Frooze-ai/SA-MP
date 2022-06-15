@@ -90,10 +90,10 @@ typedef struct _PED_TASKS_TYPE
 	// Extended Tasks
 	DWORD * pdwFighting;
 	DWORD * pdwCrouching;
-	DWORD * pdwExtUnk1;
-	DWORD * pdwExtUnk2;
-	DWORD * pdwExtUnk3;
-	DWORD * pdwExtUnk4;
+	DWORD * pdwSay;
+	DWORD * pdwFacialComplex;
+	DWORD * pdwPartialAnim;
+	DWORD * pdwIK;
 } PED_TASKS_TYPE;
 
 //-----------------------------------------------------------
@@ -133,10 +133,13 @@ typedef struct _PED_TYPE
 	PADDING(_pad100,948); // 184-1132
 	DWORD dwStateFlags; // 1132-1136
 	DWORD dwInvulFlags; // 1136-1140		0x1000 = can_decap
-	PADDING(_pad104,8); // 1140-1148
+	DWORD dwUnkFlags; // 1140-1444
+	PADDING(_pad104,4); // 1144-1148
 	PED_TASKS_TYPE *Tasks; // 1148-1152
 	DWORD dwPlayerInfoOffset; // 1152-1156
-	PADDING(_pad200,144); // 1156-1300
+	PADDING(_pad200,124); // 1156-1280
+	DWORD dwActiveVision; // 1280-1284
+	PADDING(_pad133,16); // 1284-1300
 	float fAimZ; // 1300-1304
 	PADDING(_pad201,16); // 1304-1320
 	BYTE byteAimAnimState; // 1320-1321
@@ -164,7 +167,10 @@ typedef struct _PED_TYPE
 	WEAPON_SLOT_TYPE WeaponSlots[13]; // 1440-1804
 	PADDING(_pad270,12); // 1804-1816
 	BYTE byteCurWeaponSlot; // 1816-1817
-	PADDING(_pad280,23); // 1817-1840
+	PADDING(_pad280,20); // 1817-1837
+	BYTE byteFightingStyle; // 1837-1838
+	BYTE byteFightingType; // 1838-1839
+	BYTE _pad282;			// 1839-1840
 	DWORD pFireObject;	 // 1840-1844
 	PADDING(_pad281,44); // 1844-1888
 	DWORD  dwWeaponUsed; // 1888-1892
@@ -199,36 +205,47 @@ typedef struct _VEHICLE_TYPE
 	PADDING(_pad230,42);  // 1078-1120
 	PED_TYPE * pDriver;   // 1120-1124
 	PED_TYPE * pPassengers[7]; // 1124-1152
-
-	PADDING(_pad235,16);  // 1152-1168
+	PADDING(_pad235,8);  // 1152-1160
+	BYTE byteMaxPassengers; // 1160-1161
+	PADDING(_pad2139,7);  // 1161-1168
 	DWORD pFireObject;	 // 1168-1172
 
 	float fSteerAngle1; // 1172-1176
 	float fSteerAngle2; // 1176-1180
 	float fAcceleratorPedal; // 1180-1184
 	float fBrakePedal; // 1184-1188
-	
-	PADDING(_pad275,28); // 1188-1216
-
+	PADDING(_pad241,4); // 1188-1192
+	BYTE byteMoreFlags;	// 1192-1193
+	PADDING(_pad275,23); // 1183-1216
 	float fHealth;			// 1216-1220
 	PADDING(_pad240,4);		// 1220-1224
 	DWORD dwTrailer;		// 1224-1228
-	PADDING(_pad241,44);	// 1228-1272
+	PADDING(_pad242,44);	// 1228-1272
 	DWORD dwDoorsLocked;	// 1272-1276
 	PADDING(_pad2423,24);	// 1276-1300
 	BYTE byteHorn2;			// 1300-1301
-	PADDING(_pad2424,143);	// 1301-1444
+	PADDING(_pad2424,139);	// 1301-1440
 	union {
 		struct {
-			PADDING(_pad2421,1);     // 1444-1445
+			DWORD dwDamageBase;     // 1440-1444
+			BYTE byteEngineStatus;  // 1444-1445
 			BYTE bCarWheelPopped[4]; // 1445-1449
+			DWORD dwDoorStatus1;	// 1449-1453
+			WORD wDoorStatus2;		// 1453-1455
+			BYTE byteDamageUnk1;	// 1455-1456
+			DWORD dwLightStatus;	// 1456-1460
+			DWORD dwPanelStatus;	// 1460-1464
 		};
 		struct {
+			DWORD dwTrainUnk;	 // 1440-1444
 			float fTrainSpeed;   // 1444-1448
-			PADDING(_pad2422,1); // 1448-1449
+			PADDING(_pad2422,18); // 1448-1464
 		};
 	};
-	PADDING(_pad243, 179);  // 1449-1628
+	PADDING(_pad203, 24);  // 1464-1488
+	DWORD * VehicleAttachedFront;  // 1488-1492
+	DWORD * VehicleAttachedBottom; // 1492-1498
+	PADDING(_pad207, 130);  // 1498-1628
 	BYTE bBikeWheelPopped[2]; // 1628-1630
 	PADDING(_pad244, 526);  // 1630-2156
 	DWORD dwHydraThrusters; // 2156-2160

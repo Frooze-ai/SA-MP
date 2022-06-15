@@ -1846,7 +1846,7 @@ DWORD dwExt4;
 void CPlayerPed::DestroyFollowPedTask()
 {    
 	if(!m_pPed) return;
-	dwExt4 = (DWORD)m_pPed->Tasks->pdwExtUnk4;
+	dwExt4 = (DWORD)m_pPed->Tasks->pdwIK;
 	if(!dwExt4) return;
 
 	_asm mov ecx, dwExt4
@@ -1854,7 +1854,7 @@ void CPlayerPed::DestroyFollowPedTask()
 	_asm push 1
 	_asm call edx
 
-	m_pPed->Tasks->pdwExtUnk4 = 0;
+	m_pPed->Tasks->pdwIK = 0;
 }
 
 //-----------------------------------------------------------

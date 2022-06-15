@@ -299,10 +299,10 @@ void GameDebugDrawTaskInfo()
 	GameDebugDrawNextLine("Extended Tasks",D3DCOLOR_ARGB(255,255,90,90));
 	PrintInfoForTask("Crouch",actor->Tasks->pdwCrouching);
 	PrintInfoForTask("Fight",actor->Tasks->pdwFighting);
-	PrintInfoForTask("Unk1",actor->Tasks->pdwExtUnk1);
-	PrintInfoForTask("Unk2",actor->Tasks->pdwExtUnk2);
-	PrintInfoForTask("Unk3",actor->Tasks->pdwExtUnk3);
-	PrintInfoForTask("Unk4",actor->Tasks->pdwExtUnk4);
+	PrintInfoForTask("Say",actor->Tasks->pdwSay);
+	PrintInfoForTask("Facial",actor->Tasks->pdwFacialComplex);
+	PrintInfoForTask("PartialAnim",actor->Tasks->pdwPartialAnim);
+	PrintInfoForTask("IK",actor->Tasks->pdwIK);
 }
 
 void GameDebugDrawActorInfo()
