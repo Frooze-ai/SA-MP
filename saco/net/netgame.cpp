@@ -52,7 +52,7 @@ BYTE GetPacketID(Packet *p)
 CNetGame::CNetGame(PCHAR szHostOrIp, int iPort, 
 				   PCHAR szPlayerName, PCHAR szPass)
 {
-	strcpy(m_szHostName, "San Andreas Multiplayer");
+	strcpy(m_szHostName, "SA-MP");
 	strncpy(m_szHostOrIp, szHostOrIp, sizeof(m_szHostOrIp));
 	m_iPort = iPort;
 
