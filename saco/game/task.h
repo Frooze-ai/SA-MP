@@ -31,6 +31,7 @@ public:
 	virtual void Destroy();
 
 	virtual void ApplyToPed(CPlayerPed *pPed);
+	//virtual void ApplyToPed(CActorPed *pPed);
 
 	virtual DWORD GetID();
 
@@ -53,4 +54,25 @@ class CTaskTakeDamageFall :
 {
 public:
 	CTaskTakeDamageFall(DWORD dwFallType, DWORD dwNum);
+};
+
+class CTaskGoggles :
+	public CTask
+{
+public:
+	CTaskGoggles();
+};
+
+class CTaskGoToPoint :
+	public CTask
+{
+public:
+	CTaskGoToPoint(int unk, VECTOR* vecPos, float unk2, int unk3, int unk4 );
+};
+
+class CTaskKillPedOnFootArmed :
+	public CTask
+{
+public:
+	CTaskKillPedOnFootArmed( int unk, int unk2, int unk3, int unk4, PED_TYPE* pToShoot );
 };
