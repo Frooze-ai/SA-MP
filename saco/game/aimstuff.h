@@ -31,8 +31,16 @@ BYTE __stdcall GameGetLocalPlayerCameraMode();
 
 void __stdcall GameStoreLocalPlayerCameraExtZoom();
 void __stdcall GameSetLocalPlayerCameraExtZoom();
-void __stdcall GameSetPlayerCameraExtZoom(BYTE bytePlayerID, float fZoom);
+void __stdcall GameSetPlayerCameraExtZoom(BYTE bytePlayerID, float fZoom, float fRatio);
 void __stdcall GameSetRemotePlayerCameraExtZoom(BYTE bytePlayerID);
+float __stdcall GameGetLocalPlayerAspectRatio();
 float __stdcall GameGetLocalPlayerCameraExtZoom();
+
+void __stdcall GameSetPlayerWeaponSkillLevel(int iPlayer, int iSkill, float fLevel);
+void __stdcall GameSetLocalPlayerWeaponSkillLevel(int iSkill, float fLevel);
+void __stdcall GameStoreLocalPlayerWeaponSkills();
+void __stdcall GameSetLocalPlayerWeaponSkills();
+void __stdcall GameResetLocalPlayerWeaponSkills();
+void __stdcall GameSetRemotePlayerWeaponSkills(int iPlayer);
 
 //----------------------------------------------------------
