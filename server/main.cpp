@@ -276,6 +276,7 @@ int main (int argc, char** argv)
 	pConsole->AddStringVariable("filterscripts", 0, "");
 	pConsole->AddStringVariable("plugins", 0, "");
 	pConsole->AddStringVariable("nosign", 0, "");
+	pConsole->AddStringVariable("logtimeformat", 0, "[%H:%M:%S]");
 	pConsole->AddVariable("anticheat",CON_VARTYPE_BOOL, /* CON_VARFLAG_RULE */ 0, &bEnableAC);
 	pConsole->AddVariable("instagib", CON_VARTYPE_BOOL, CON_VARFLAG_RULE, &bEnableInstagib, ServerInstagibChanged);
 	pConsole->AddVariable("myriad", CON_VARTYPE_BOOL, 0, &bGameMod);
@@ -308,6 +309,7 @@ int main (int argc, char** argv)
 	pConsole->ModifyVariableFlags("plugins", CON_VARFLAG_READONLY);
 	pConsole->ModifyVariableFlags("anticheat", CON_VARFLAG_READONLY /* | CON_VARFLAG_RULE */);
 	pConsole->ModifyVariableFlags("nosign", CON_VARFLAG_READONLY);
+	pConsole->ModifyVariableFlags("logtimeformat", CON_VARFLAG_READONLY);
 
 	// Add the version as a rule
 	pConsole->AddStringVariable("version", CON_VARFLAG_RULE | CON_VARFLAG_READONLY, SAMP_VERSION);
@@ -420,11 +422,9 @@ void logprintf(char* format, ...)
 				time_t now;
 				now = time(NULL);
 				tm = localtime(&now);
-				char *s;
-				s = new char[256];
-				strftime(s, 256, "[%H:%M:%S]", tm);
+				char s[256];
+				strftime(s, 256, pConsole->GetStringVariable("logtimeformat"), tm);
 				fprintf(pLogFile, "%s %s\n", s, buffer);
-				delete [] s;
 			}
 			else fprintf(pLogFile, "%s\n", buffer);
 		}
