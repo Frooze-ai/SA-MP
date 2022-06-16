@@ -95,13 +95,6 @@
 #endif
 
 
-// --------
-// SETTINGS DEF
-typedef struct _SERVER_SETTINGS {
-	int  iMaxPlayers;
-	int  iPort;
-	char szBindIp[64];
-} SERVER_SETTINGS;
 
 // --------
 // INCLUDES

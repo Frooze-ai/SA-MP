@@ -13,8 +13,6 @@ CNetGame		*pNetGame	= NULL;
 CConsole		*pConsole	= NULL;
 CPlugins		*pPlugins	= NULL;
 
-SERVER_SETTINGS gServerSettings;
-
 #ifdef RAKRCON
 CRcon		*pRcon		= NULL;
 #endif
@@ -33,10 +31,6 @@ unsigned int _uiRndSrvChallenge;
 #ifdef WIN32
 extern LONG WINAPI exc_handler(_EXCEPTION_POINTERS* exc_inf);
 #endif
-
-//----------------------------------------------------
-
-void InitSettingsFromCommandLine(char * szCmdLine);
 
 //----------------------------------------------------
 
@@ -234,20 +228,6 @@ int main (int argc, char** argv)
 	// Open the log file
 	LoadLogFile();
 
-	// Create the command line string and process if needed.
-	char szCmdLine[1024];
-	memset(szCmdLine,0,1024);
-
-	int cmdcnt=1;
-	if(argc > 1) {
-		while(cmdcnt != argc) {
-			strcat(szCmdLine, argv[cmdcnt]);
-			strcat(szCmdLine, " ");
-			cmdcnt++;
-		}
-		InitSettingsFromCommandLine(szCmdLine);
-	}
-
 	// Write welcome message.
 	logprintf("");
 	logprintf("SA-MP Dedicated Server");
@@ -267,30 +247,8 @@ int main (int argc, char** argv)
 	pConsole = new CConsole();
 
 	pConsole->AddVariable("announce",CON_VARTYPE_BOOL, 0, &bEnableAnnounce);
-	
-	if(gServerSettings.iMaxPlayers) {
-		iMaxPlayers = gServerSettings.iMaxPlayers;
-		pConsole->AddVariable("maxplayers", CON_VARTYPE_INT, 0, &iMaxPlayers);
-		pConsole->ModifyVariableFlags("maxplayers", CON_VARFLAG_READONLY);
-	} else {
-		pConsole->AddVariable("maxplayers", CON_VARTYPE_INT, 0, &iMaxPlayers, ServerMaxPlayersChanged);
-	}
-
-	if(gServerSettings.iPort) {
-        iListenPort = gServerSettings.iPort;
-		pConsole->AddVariable("port", CON_VARTYPE_INT, 0, &iListenPort);
-		pConsole->ModifyVariableFlags("port", CON_VARFLAG_READONLY);
-	} else {
-		pConsole->AddVariable("port", CON_VARTYPE_INT, 0, &iListenPort);
-	}
-
-	if(strlen(gServerSettings.szBindIp)) {
-		pConsole->AddStringVariable("bind", 0, gServerSettings.szBindIp);
-		pConsole->ModifyVariableFlags("bind", CON_VARFLAG_READONLY);
-	} else {
-		pConsole->AddStringVariable("bind", 0, NULL);
-	}
-
+	pConsole->AddVariable("maxplayers", CON_VARTYPE_INT, 0, &iMaxPlayers, ServerMaxPlayersChanged);
+	pConsole->AddVariable("port", CON_VARTYPE_INT, 0, &iListenPort);
 	pConsole->AddVariable("lanmode",CON_VARTYPE_BOOL,0, &bLanModeEnable);
 	pConsole->AddVariable("query",CON_VARTYPE_BOOL, 0, &bAllowQuery);
 
@@ -305,6 +263,7 @@ int main (int argc, char** argv)
 #endif
 
 	pConsole->AddVariable("timestamp",CON_VARTYPE_BOOL,0,&bEnableTimestamp);
+	pConsole->AddStringVariable("bind", 0, NULL);
 	pConsole->AddStringVariable("password", 0, NULL, ServerPasswordChanged);
 	pConsole->AddStringVariable("hostname", 0, "SA:MP Server");
 	pConsole->AddStringVariable("mapname", CON_VARFLAG_RULE, "San Andreas");
@@ -494,60 +453,6 @@ void flogprintf(char* format, ...)
 	fprintf(pLogFile, "%s\n", buffer);
 	fflush(pLogFile);
 	va_end(ap);
-}
-
-//----------------------------------------------------
-
-void SetStringFromCommandLine(char *szCmdLine, char *szString);
-
-void InitSettingsFromCommandLine(char * szCmdLine)
-{
-	//printf("CmdLine: %s",szCmdLine);
-
-	memset(&gServerSettings,0,sizeof(SERVER_SETTINGS));
-
-	char tmp[256];
-
-	while(*szCmdLine) {
-
-		if(*szCmdLine == '-' || *szCmdLine == '/') {
-			szCmdLine++;
-			switch(*szCmdLine) {
-				case 'm':
-					szCmdLine++;
-					SetStringFromCommandLine(szCmdLine,tmp);
-                    gServerSettings.iMaxPlayers = atoi(tmp);
-					break;
-				case 'p':
-					szCmdLine++;
-					SetStringFromCommandLine(szCmdLine,tmp);
-                    gServerSettings.iPort = atoi(tmp);
-					break;
-				case 'b':
-					szCmdLine++;
-					SetStringFromCommandLine(szCmdLine,gServerSettings.szBindIp);
-					break;
-			}
-		}
-
-		szCmdLine++;
-	}
-}
-
-//----------------------------------------------------
-
-void SetStringFromCommandLine(char *szCmdLine, char *szString)
-{
-	while(*szCmdLine == ' ') szCmdLine++;
-	while(*szCmdLine &&
-		  *szCmdLine != ' ' &&
-		  *szCmdLine != '-' &&
-		  *szCmdLine != '/') 
-	{
-		*szString = *szCmdLine;
-		szString++; szCmdLine++;
-	}
-	*szString = '\0';
 }
 
 //----------------------------------------------------
