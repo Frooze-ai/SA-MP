@@ -38,7 +38,7 @@
 #define MAX_GANG_ZONES			1024
 #define MAX_CMD_INPUT			128		// This limitation is also found on the client. it applies to chat and commands.
 
-#define DEFAULT_MAX_PLAYERS		32
+#define DEFAULT_MAX_PLAYERS		50
 #define DEFAULT_LISTEN_PORT		8192
 #define DEFAULT_RCON_PORT		8193
 #define DEFAULT_RCON_MAXUSERS	8
