@@ -15,7 +15,7 @@
 #define IS_FIRING(x) (x & 0x200) // for checking the keystate firing bit
 
 //----------------------------------------------------
-#define MAX_SPAWNS 500
+#define MAX_SPAWNS 319
 
 #define UPDATE_TYPE_NONE	0
 #define UPDATE_TYPE_FULL	1
