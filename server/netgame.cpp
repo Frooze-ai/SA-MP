@@ -1024,11 +1024,24 @@ void CNetGame::Packet_WeaponsUpdate(Packet *p)
 
 void CNetGame::Packet_NewIncomingConnection(Packet* packet)
 {
+	if(!packet) return;
+
 	//logprintf("Incoming Connection: %d (%d)\n", packet->length, packet->playerId);
-	
-	in_addr in;
-	in.s_addr = packet->playerId.binaryAddress;
-	logprintf("Incomming connection: %s:%u",inet_ntoa(in),packet->playerId.port);
+
+	logprintf("[connection] incoming connection: %s id: %u",
+		packet->playerId.ToString(),
+		packet->playerIndex);
+
+	if (m_pGameMode)
+	{
+		if (m_pFilterScripts)
+		{
+			m_pFilterScripts->OnIncomingConnection(packet->playerIndex,
+				packet->playerId.ToString(),packet->playerId.port);
+			m_pGameMode->OnIncomingConnection(packet->playerIndex,
+				packet->playerId.ToString(),packet->playerId.port);
+		}
+	}
 }
 
 //----------------------------------------------------

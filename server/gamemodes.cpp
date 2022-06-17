@@ -862,3 +862,23 @@ int CGameMode::OnPlayerUpdate(cell playerid)
 }
 
 //----------------------------------------------------------------------------------
+
+int CGameMode::OnIncomingConnection(cell playerid, char* ip_address, cell port)
+{
+	int idx;
+	cell ret = 0;
+
+	if (!amx_FindPublic(&m_amx, "OnIncomingConnection", &idx))
+	{
+		cell amx_addr, *phys_addr;
+		amx_Push(&m_amx, port);
+		amx_PushString(&m_amx, &amx_addr, &phys_addr, (char*)ip_address, 0, 0);
+		amx_Push(&m_amx, playerid);
+		amx_Exec(&m_amx, &ret, idx);
+		amx_Release(&m_amx, amx_addr);
+	}
+
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
