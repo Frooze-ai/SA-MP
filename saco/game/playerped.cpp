@@ -726,6 +726,9 @@ VEHICLE_TYPE * CPlayerPed::GetGtaVehicle()
 
 void CPlayerPed::GiveWeapon(int iWeaponID, int iAmmo)
 {
+	if(!m_pPed) return;
+	if(!GamePool_Ped_GetAt(m_dwGTAId)) return;
+
 	int iModelID = 0;
 	iModelID = GameGetWeaponModelIDFromWeaponID(iWeaponID);
 
