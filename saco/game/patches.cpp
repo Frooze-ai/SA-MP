@@ -212,6 +212,9 @@ void ApplyInGamePatches()
 		dwFarClipReturnAddr = dwFarClipHookAddr+9;
 	}	
 
+	// Rest of the stuff
+	RelocateScanListHack();
+	
 	// APPLY THE DAMN NOP PATCH AND QUIT ASCIING QUESTIONS!
 
 	/* Frame limiter default ~40 fps
@@ -527,9 +530,6 @@ void ApplyInGamePatches()
 	UnFuck(0x63ADC8,6);
 	memset((PVOID)0x63ADC8,0x90,6);
 
-	// Rest of the stuff
-	RelocateScanListHack();
-	
 	RelocatePedsListHack(); // allows us to use all 300 ped model slots
 
 	// Stop ped rotations from the camera
@@ -669,6 +669,9 @@ void RelocateScanListHack()
 		*(PDWORD)(dwPatchAddrScanRelocEnd[x]) = (DWORD)(aScanListMemory+sizeof(ScanListMemory));
 		x++;
 	}	
+
+	VirtualProtect((LPVOID)0x564DC7,4,PAGE_EXECUTE_READWRITE,&oldProt);
+	*(PDWORD)0x564DC7 = (DWORD)(ScanListMemory+115200);
 
 	// Others that didn't fit.
 	VirtualProtect((PVOID)0x40936A,4,PAGE_EXECUTE_READWRITE,&oldProt);
