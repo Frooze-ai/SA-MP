@@ -110,6 +110,8 @@ void UnFuckAndCheck(DWORD addr, int size, BYTE byteCheck)
 		OutputDebugString(s);
 #endif
 		while(byteCheck != *(PBYTE)addr) Sleep(1);
+
+		VirtualProtect((PVOID)addr,size,PAGE_EXECUTE_READWRITE,&d);
 	}
 }
 
