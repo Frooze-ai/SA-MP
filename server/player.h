@@ -59,6 +59,7 @@ typedef struct _PLAYER_SPAWN_INFO
 {
 	BYTE byteTeam;
 	int iSkin;
+	BYTE _pad;
 	VECTOR vecPos;
 	float fRotation;
 	int iSpawnWeapons[3];
