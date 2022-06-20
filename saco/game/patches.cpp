@@ -215,6 +215,8 @@ void ApplyInGamePatches()
 	// Rest of the stuff
 	RelocateScanListHack();
 	
+	RelocatePedsListHack(); // allows us to use all 300 ped model slots
+	
 	// APPLY THE DAMN NOP PATCH AND QUIT ASCIING QUESTIONS!
 
 	/* Frame limiter default ~40 fps
@@ -530,8 +532,6 @@ void ApplyInGamePatches()
 	UnFuck(0x63ADC8,6);
 	memset((PVOID)0x63ADC8,0x90,6);
 
-	RelocatePedsListHack(); // allows us to use all 300 ped model slots
-
 	// Stop ped rotations from the camera
 	UnFuck(0x6884C4,6);
 	memset((PVOID)0x6884C4,0x90,6);
@@ -549,7 +549,7 @@ typedef struct _PED_MODEL
 	BYTE  data[64];
 } PED_MODEL;
 
-PED_MODEL PedModelsMemory[600];
+PED_MODEL PedModelsMemory[319];
 
 void RelocatePedsListHack()
 {
@@ -557,7 +557,7 @@ void RelocatePedsListHack()
 
 	// Init the mem
 	int x=0;
-	while(x!=600) {
+	while(x!=319) {
 		PedModelsMemory[x].func_tbl = 0x85BDC0;
 		memset(PedModelsMemory[x].data,0,64);
 		x++;
