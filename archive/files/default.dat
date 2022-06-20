@@ -4,6 +4,8 @@
 
 # everything is loaded on a per directory basis and in alphabetical order 
 # to improve the speed of loading
+IMG MODELS\GTA3.IMG
+IMG MODELS\GTA_INT.IMG
 
 #
 # Object types
