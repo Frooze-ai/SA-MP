@@ -12,6 +12,7 @@
 void InstallSCMEventsProcessor();
 void RelocateScanListHack();
 void RelocatePedsListHack();
+void RelocateObjectListHack();
 
 void ApplyGameVehicleColorPatch();
 
@@ -274,6 +275,8 @@ void ApplyInGamePatches()
 	RelocatePedsListHack(); // allows us to use all 300 ped model slots
 	
 	ApplyGameVehicleColorPatch();
+
+	RelocateObjectListHack();
 
 	// APPLY THE DAMN NOP PATCH AND QUIT ASCIING QUESTIONS!
 
@@ -624,6 +627,42 @@ void RelocatePedsListHack()
 	// instead of the gta_sa.exe mem.
 	UnFuck(0x4C67AD,4);
 	*(DWORD *)0x4C67AD = (DWORD)aPedsListMemory;
+}
+
+//----------------------------------------------------------
+
+#pragma pack(1)
+typedef struct _OBJECT_MODEL
+{
+	DWORD func_tbl;
+	BYTE  data[28];
+} OBJECT_MODEL;
+
+OBJECT_MODEL ObjectModelsMemory[20000];
+
+DWORD dwPatchAddrObjectModelsReloc[14] = {
+	0x4C63F2,0x4C662D,0x4C6822,0x4C6829,0x4C6877,0x4C6881,0x4C6890,
+	0x4C68A5,0x4C68F3,0x4C6932,0x4C6971,0x4C69B0,0x4C69EF,0x4C6A2E
+};
+
+void RelocateObjectListHack()
+{
+	BYTE *aObjectsListMemory = (BYTE*)&ObjectModelsMemory[0];
+
+	// Init the mem
+	int x=0;
+	while(x!=20000) {
+		ObjectModelsMemory[x].func_tbl = 0x85BBF0;
+		memset(ObjectModelsMemory[x].data,0,28);
+		x++;
+	}
+
+	x=0;
+	while(x!=14) {
+		UnFuck(dwPatchAddrObjectModelsReloc[x],4);
+		*(DWORD*)dwPatchAddrObjectModelsReloc[x] = (DWORD)aObjectsListMemory;
+		x++;
+	}
 }
 
 //----------------------------------------------------------
