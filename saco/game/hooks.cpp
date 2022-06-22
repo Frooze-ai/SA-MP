@@ -1288,7 +1288,7 @@ void GameInstallHooks()
 	InstallCallHook(0x4579C6,(DWORD)PickUpPickup_Hook, 0xE9);
 
 	// This is for disabling the CRunningScript::ProcessOneCommand outside CGame::Process and ScriptCommand
-	InstallCallHook(0x53BFC7,(DWORD)TheScripts_Process_Hook);
+	//InstallCallHook(0x53BFC7,(DWORD)TheScripts_Process_Hook);
     
 	//InstallCallHook(0x6B2028,(DWORD)AllVehicles_ProcessControl_TankTurret_Hook);
 	//InstallCallHook(0x6B1F5E,(DWORD)AllVehicles_ProcessControl_WaterTurret_Hook);

@@ -309,9 +309,7 @@ BOOL ApplyPreGamePatches()
 	*(DWORD *)0x5B8E6A = dwStreamingMemory;
 
 	// For SCM disable/enable
-	// TODO: Comment this out. It's not present in the latest version
-	// but this is required to get in the game
-	UnFuck(0x469EF5,2);
+	//UnFuck(0x469EF5,2);
 
 	// prevent processing image files (GTA3.IMG, GTA_INT.IMG)
 	// manually load these in default.dat

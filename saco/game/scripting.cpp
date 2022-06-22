@@ -129,8 +129,8 @@ int ScriptCommand(const SCRIPT_COMMAND* pScriptCommand, ...)
 	try {
 
 		// Enable SCM
-		*(PBYTE)0x469EF5 = 0xFF;
-		*(PBYTE)0x469EF6 = 0xD2;
+		//*(PBYTE)0x469EF5 = 0xFF;
+		//*(PBYTE)0x469EF6 = 0xD2;
 
 		result = ExecuteScriptBuf();
 		if (var_pos)	// if we've used a variable...
@@ -142,8 +142,8 @@ int ScriptCommand(const SCRIPT_COMMAND* pScriptCommand, ...)
 		}
 
 		// Disable SCM
-		*(PBYTE)0x469EF5 = 0x8B;
-		*(PBYTE)0x469EF6 = 0xD0;
+		//*(PBYTE)0x469EF5 = 0x8B;
+		//*(PBYTE)0x469EF6 = 0xD0;
 
 	} catch(...) {
 		if(pChatWindow && !bExceptionDisplayed) {
