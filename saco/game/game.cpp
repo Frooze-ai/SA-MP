@@ -221,6 +221,8 @@ void CGame::LoadRequestedModels()
 
 BOOL CGame::IsModelLoaded(int iModelID)
 {
+	if(iModelID > 20000 || iModelID < 0) return TRUE;
+	
 	return ScriptCommand(&is_model_available,iModelID);
 }
 
@@ -699,7 +701,7 @@ DWORD CGame::CreateWeaponPickup(int iModel, DWORD dwAmmo, float fX, float fY, fl
 {
 	DWORD hnd;
 
-	if(!IsModelLoaded(iModel)) {
+	if(iModel <= 20000 && iModel >= 0 && !IsModelLoaded(iModel)) {
 		RequestModel(iModel);
 		LoadRequestedModels();
 		while(!IsModelLoaded(iModel)) Sleep(5);
