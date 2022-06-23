@@ -315,6 +315,10 @@ void CGame::SetMaxStats()
 	// weapon stats
 	_asm mov eax, 0x439940
 	_asm call eax
+
+	// disable stat set
+	UnFuck(0x55A070,1);
+	*(BYTE*)0x55A070 = 0xC3;
 }
 
 //-----------------------------------------------------------
