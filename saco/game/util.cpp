@@ -19,7 +19,7 @@ DWORD dwPlayerPedPtrs[MAX_PLAYERS];
 
 #define PI 3.14159265
 
-DWORD dwHudColors[1000] = {
+DWORD dwHudColors[NUM_RADAR_COLORS] = {
 0xFF8C13FF, // dark orange
 0xC715FFFF, // Medium violet red
 0x20B2AAFF, // sea green
