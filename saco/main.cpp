@@ -23,6 +23,7 @@ CHAR					szCachePath[MAX_PATH+1];
 int						iGtaVersion=0;
 
 GAME_SETTINGS			tSettings;
+CConfig					*pConfig=0;
 CChatWindow				*pChatWindow=0;
 CCmdWindow				*pCmdWindow=0;
 CDeathWindow			*pDeathWindow=0;
@@ -374,6 +375,10 @@ void DoInitStuff()
 		
 		CreateWorkingDirectory();
 
+		sprintf(szConfigFile,"%s\\sa-mp.cfg",szWorkingPath);
+
+		pConfig = new CConfig(szConfigFile);
+		
 		timeBeginPeriod(1); // increases the accuracy of Sleep()
 		SubclassGameWindow();
 

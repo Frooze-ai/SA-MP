@@ -70,6 +70,7 @@ typedef struct _GAME_SETTINGS {
 #include "net/scriptrpc.h"
 
 #include "filehooks.h"
+#include "config.h"
 #include "fontrender.h"
 #include "chatwindow.h"
 #include "cmdwindow.h"
