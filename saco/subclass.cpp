@@ -220,25 +220,38 @@ BOOL HandleCharacterInput(DWORD dwChar)
 
 //----------------------------------------------------
 
+void SetupNewWindowProcedure()
+{
+	HWND hwndGameWnd = pGame->GetMainWindowHwnd();
+
+	if(hwndGameWnd) {
+		hOldProc = (WNDPROC)GetWindowLong(hwndGameWnd,GWL_WNDPROC);
+		if(hOldProc != NewWndProc) {
+			SetWindowLong(hwndGameWnd,GWL_WNDPROC,(LONG)NewWndProc);
+		}
+	}
+}
+
+//----------------------------------------------------
+
 BOOL SubclassGameWindow()
 {
 	HWND hwndGameWnd = pGame->GetMainWindowHwnd();
 
+	if(!hwndGameWnd) return FALSE;
+
+	SetClassLongA(hwndGameWnd,GCL_STYLE,GetClassLongA(hwndGameWnd,GCL_STYLE)|CS_DBLCLKS);
+
+	SetupNewWindowProcedure();
+
 	SetWindowText(hwndGameWnd,"GTA:SA:MP");
 
-	/*
 	if(IsWindowUnicode(hwndGameWnd)) {
 		OutputDebugString("GTA is unicode");
 	} else {
 		OutputDebugString("GTA is not unicode");
-	}*/
-	
-	if(hwndGameWnd) {
-		hOldProc = (WNDPROC)GetWindowLong(hwndGameWnd,GWL_WNDPROC);
-		SetWindowLong(hwndGameWnd,GWL_WNDPROC,(LONG)NewWndProc);
-		return TRUE;
 	}
-	return FALSE;
+	return TRUE;
 }
 
 //----------------------------------------------------
