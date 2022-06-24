@@ -1629,3 +1629,11 @@ void _declspec(noreturn) GameForcedExit(int iReasonCode)
 }
 
 //----------------------------------------------------
+
+BOOL IsFileOrDirectoryExist(char *szPath)
+{
+	struct stat s;
+	return stat(szPath, &s) == 0;
+}
+
+//----------------------------------------------------

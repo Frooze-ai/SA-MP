@@ -62,6 +62,7 @@ BOOL __stdcall IsValidModel(int iModelID);
 
 #define FORCE_EXIT(a) GameForcedExit(a); while(true);
 
+BOOL IsFileOrDirectoryExist(char* szPath);
 
 
 //-----------------------------------------------------------
