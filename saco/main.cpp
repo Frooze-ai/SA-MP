@@ -374,7 +374,7 @@ void DoInitStuff()
 		
 		CreateWorkingDirectory();
 
-		timeBeginPeriod(5); // increases the accuracy of Sleep()
+		timeBeginPeriod(1); // increases the accuracy of Sleep()
 		SubclassGameWindow();
 
 		CheckDuplicateD3D9Dlls(); // Do this before any hooks are installed.
