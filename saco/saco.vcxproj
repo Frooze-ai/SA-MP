@@ -206,6 +206,7 @@
     <ClInclude Include="checksums.h" />
     <ClInclude Include="cmdprocs.h" />
     <ClInclude Include="cmdwindow.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="d3d9\common\dxstdafx.h" />
     <ClInclude Include="d3d9\common\DXUT.h" />
     <ClInclude Include="d3d9\common\DXUTenum.h" />
@@ -537,6 +538,7 @@
     <ClCompile Include="checksums.cpp" />
     <ClCompile Include="cmdprocs.cpp" />
     <ClCompile Include="cmdwindow.cpp" />
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="d3d9\common\dxstdafx.cpp" />
     <ClCompile Include="d3d9\common\DXUT.cpp" />
     <ClCompile Include="d3d9\common\DXUTenum.cpp" />

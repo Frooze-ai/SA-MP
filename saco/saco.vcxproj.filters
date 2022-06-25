@@ -605,6 +605,9 @@
     <ClInclude Include="checksums.h">
       <Filter>general</Filter>
     </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>general</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="archive\ArchiveFS.cpp">
@@ -1002,6 +1005,9 @@
       <Filter>general</Filter>
     </ClCompile>
     <ClCompile Include="checksums.cpp">
+      <Filter>general</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
       <Filter>general</Filter>
     </ClCompile>
   </ItemGroup>
