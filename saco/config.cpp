@@ -361,11 +361,13 @@ void CConfig::AddConfigEntry(char * szName, char * wsData)
 			SetIntConfigEntry(szName,atoi(wsData));
 			break;
 		case CONFIG_DATATYPE_STRING:
+		{
 			DWORD dwLen = strlen(wsData);
 			strncpy(wsData,wsData+1,dwLen-1);
 			wsData[dwLen-2]='\0';
 			SetStringConfigEntry(szName,wsData);
 			break;
+		}
 		case CONFIG_DATATYPE_FLOAT:
 			SetFloatConfigEntry(szName,atof(wsData));
 			break;
