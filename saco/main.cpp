@@ -341,6 +341,15 @@ void CallRwRenderStateSet(int state, int option)
 
 //----------------------------------------------------
 
+void SetupDialogResourceManager()
+{
+	pDialogResourceManager = new CDXUTDialogResourceManager();
+	pDialogResourceManager->OnCreateDevice(pD3DDevice);
+	pDialogResourceManager->OnResetDevice();
+}
+
+//----------------------------------------------------
+
 void SetupGameUI()
 {
 	if(pGameUI) SAFE_DELETE(pGameUI);
@@ -404,9 +413,7 @@ void DoInitStuff()
 		// DXUT GUI INITIALISATION
 		OutputDebugString("DXUTGUI creating..");
 
-		pDialogResourceManager = new CDXUTDialogResourceManager();
-		pDialogResourceManager->OnCreateDevice(pD3DDevice);
-		pDialogResourceManager->OnResetDevice();
+		SetupDialogResourceManager();
 		
 		OutputDebugString("SetupGameUI() creating..");
 
