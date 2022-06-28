@@ -387,18 +387,8 @@ void DoInitStuff()
 		// Grab the real IDirect3D9 * from the game.
 		pD3D = (IDirect3D9 *)pGame->GetD3D();
 
-		if(!pD3D) {
-			OutputDebugString("No D3D!!!");
-			return;
-		}
-
 		// Grab the real IDirect3DDevice9 * from the game.
 		pD3DDevice = (IDirect3DDevice9 *)pGame->GetD3DDevice();
-
-		if(!pD3D) {
-			OutputDebugString("No D3DDevice!!!");
-			return;
-		}
 
 		*(IDirect3DDevice9Hook**)ADDR_ID3D9DEVICE = new IDirect3DDevice9Hook();
 
