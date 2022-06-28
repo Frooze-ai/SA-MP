@@ -392,6 +392,8 @@ void DoInitStuff()
 
 		*(IDirect3DDevice9Hook**)ADDR_ID3D9DEVICE = new IDirect3DDevice9Hook();
 
+		pD3DDevice->ShowCursor(FALSE);
+
 		OutputDebugString("Font and chat window creating..");
 
 		// Create instances of the chat and input classes.
