@@ -241,6 +241,8 @@ private:
 
     // Initialize default Elements
     void InitDefaultElements();
+    
+    void UpdateDialogFonts();
 
     // Windows message handlers
     void OnMouseMove( POINT pt );

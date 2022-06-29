@@ -540,6 +540,36 @@ void QuitGame()
 
 //----------------------------------------------------
 
+int GetDialogFontSize()
+{
+	return 2 * pConfig->GetIntConfigEntry("fontsize") + 20;
+}
+
+//----------------------------------------------------
+
+int GetFontWeight()
+{
+	int iFontWeight = pConfig->GetIntConfigEntry("fontweight");
+	switch (iFontWeight) {
+		case 0: return FW_BOLD;
+		case 1: return FW_NORMAL;
+		default: return FW_BOLD;
+	}
+}
+
+//----------------------------------------------------
+
+PCHAR GetFontFace()
+{
+	if (pConfig && pConfig->GetStringConfigEntry("fontface"))
+	{
+		return pConfig->GetStringConfigEntry("fontface");
+	}
+	return "Arial";
+}
+
+//----------------------------------------------------
+
 void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, void* pUserContext )
 {
 	switch( nControlID )

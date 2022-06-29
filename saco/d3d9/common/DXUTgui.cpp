@@ -11,6 +11,10 @@
 #undef min // use __min instead
 #undef max // use __max instead
 
+int GetDialogFontSize();
+int GetFontWeight();
+PCHAR GetFontFace();
+
 #ifndef WM_XBUTTONDOWN
 #define WM_XBUTTONDOWN 0x020B // (not always defined)
 #endif
@@ -1809,13 +1813,25 @@ HRESULT CDXUTDialogResourceManager::CreateTexture( UINT iTexture )
 
 
 //--------------------------------------------------------------------------------------
+void CDXUTDialog::UpdateDialogFonts()
+{
+    int iFontSize = GetDialogFontSize();
+    int iFontWeight = GetFontWeight();
+
+    SetFont( 0, GetFontFace(), iFontSize, iFontWeight );
+    SetFont( 1, GetFontFace(), iFontSize - 2, iFontWeight );
+}
+
+
+//--------------------------------------------------------------------------------------
 void CDXUTDialog::InitDefaultElements()
 {
     //SetTexture( 0, "DXUTControls.dds" );
 	SetTexture( 0, "sampgui.png" );
 
-    SetFont( 0, "Arial", 16, FW_BOLD );
-    
+    //SetFont( 0, "Arial", 16, FW_BOLD );
+    UpdateDialogFonts();
+
     CDXUTElement Element;
     RECT rcTexture;
 
