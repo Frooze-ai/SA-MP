@@ -1812,7 +1812,7 @@ HRESULT CDXUTDialogResourceManager::CreateTexture( UINT iTexture )
 void CDXUTDialog::InitDefaultElements()
 {
     //SetTexture( 0, "DXUTControls.dds" );
-	SetTexture( 0, "dxutgui.png" );
+	SetTexture( 0, "sampgui.png" );
 
     SetFont( 0, "Arial", 16, FW_BOLD );
     
