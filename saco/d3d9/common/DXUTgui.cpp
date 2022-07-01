@@ -4115,6 +4115,10 @@ CDXUTListBox::CDXUTListBox( CDXUTDialog *pDialog ) :
     m_nBorder = 6;
     m_nMargin = 5;
     m_nTextHeight = 0;
+
+    m_nNumOfColumns = 0;
+    for (int i = 0; i < MAX_LISTBOX_COLUMNS; i++)
+        m_nColumnWidth[i] = 0;
 }
 
 
@@ -4152,16 +4156,34 @@ void CDXUTListBox::UpdateRects()
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTListBox::AddItem( const TCHAR *wszText, void *pData )
+void CDXUTListBox::SetTextInColumn( int nIndex, int nColumn, TCHAR* wszText )
+{
+    if(nIndex >= 0 && nIndex < m_Items.GetSize() && nColumn >= 0 && nColumn < m_nNumOfColumns)
+    {
+        memset(m_Items.GetAt(nIndex)->strColumnTexts[nColumn], 0, MAX_LISTBOX_COLUMN_TEXT);
+        strncpy(m_Items.GetAt(nIndex)->strColumnTexts[nColumn], wszText, MAX_LISTBOX_COLUMN_TEXT);
+    }
+}
+
+
+//--------------------------------------------------------------------------------------
+HRESULT CDXUTListBox::AddItem( const TCHAR *wszText, int nID, D3DCOLOR Color )
 {
     DXUTListBoxItem *pNewItem = new DXUTListBoxItem;
     if( !pNewItem )
         return E_OUTOFMEMORY;
 
     StringCchCopy( pNewItem->strText, 256, wszText );
-    pNewItem->pData = pData;
+    pNewItem->nID = nID;
     SetRect( &pNewItem->rcActive, 0, 0, 0, 0 );
     pNewItem->bSelected = false;
+    pNewItem->Color = Color;
+    pNewItem->bUnselect = false;
+
+    for (int i = 0; i < MAX_LISTBOX_COLUMNS; i++)
+    {
+        ZeroMemory(pNewItem->strColumnTexts[i], 64);
+    }
 
     HRESULT hr = m_Items.Add( pNewItem );
     if( FAILED(hr) )
@@ -4178,16 +4200,17 @@ HRESULT CDXUTListBox::AddItem( const TCHAR *wszText, void *pData )
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTListBox::InsertItem( int nIndex, const TCHAR *wszText, void *pData )
+HRESULT CDXUTListBox::InsertItem( int nIndex, const TCHAR *wszText, int nID, D3DCOLOR Color )
 {
     DXUTListBoxItem *pNewItem = new DXUTListBoxItem;
     if( !pNewItem )
         return E_OUTOFMEMORY;
 
     StringCchCopy( pNewItem->strText, 256, wszText );
-    pNewItem->pData = pData;
+    pNewItem->nID = nID;
     SetRect( &pNewItem->rcActive, 0, 0, 0, 0 );
     pNewItem->bSelected = false;
+    pNewItem->Color = Color;
 
     HRESULT hr = m_Items.Insert( nIndex, pNewItem );
     if( SUCCEEDED( hr ) )
@@ -4564,7 +4587,7 @@ bool CDXUTListBox::HandleMouse( UINT uMsg, POINT pt, WPARAM wParam, LPARAM lPara
             ReleaseCapture();
             m_bDrag = false;
 
-            if( m_nSelected != -1 )
+            if( m_nSelected - m_Items.GetSize() >= 0 && m_nSelected != -1)
             {
                 // Set all items between m_nSelStart and m_nSelected to
                 // the same state as m_nSelStart
@@ -4661,6 +4684,9 @@ void CDXUTListBox::Render( IDirect3DDevice9* pd3dDevice, float fElapsedTime )
         // Update the line height formation
         m_nTextHeight = rc.bottom - rc.top;
 
+        if (m_ScrollBar.GetTrackPos() < 0)
+            m_ScrollBar.SetTrackPos(0);
+
         static bool bSBInit;
         if( !bSBInit )
         {
@@ -4698,14 +4724,47 @@ void CDXUTListBox::Render( IDirect3DDevice9* pd3dDevice, float fElapsedTime )
                     bSelectedStyle = true;
             }
 
-            if( bSelectedStyle )
+            LONG left;
+
+            if( !pItem->bUnselect && bSelectedStyle )
             {
                 rcSel.top = rc.top; rcSel.bottom = rc.bottom;
                 m_pDialog->DrawSprite( pSelElement, &rcSel );
                 m_pDialog->DrawText( pItem->strText, pSelElement, &rc );
+
+                if( m_nNumOfColumns > 0 )
+                {
+                    left = rc.left;
+
+                    for (int i = 0; i < m_nNumOfColumns; i++)
+                    {
+                        rc.left += m_nColumnWidth[i];
+                        m_pDialog->DrawText( pItem->strColumnTexts[i], pSelElement, &rc);
+                    }
+
+                    rc.left = left;
+                }
             }
             else
+            {
+                if( pItem->Color )
+                    pElement->FontColor.Current = pItem->Color;
+
                 m_pDialog->DrawText( pItem->strText, pElement, &rc );
+
+                if( m_nNumOfColumns > 0 )
+                {
+                    left = rc.left;
+
+                    for( int i = 0; i < m_nNumOfColumns; i++ )
+                    {
+                        rc.left += m_nColumnWidth[i];
+                        m_pDialog->DrawText( pItem->strColumnTexts[i], pElement, &rc);
+                    }
+
+                    rc.left = left;
+                }
+            }
 
             OffsetRect( &rc, 0, m_nTextHeight );
         }

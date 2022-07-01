@@ -589,13 +589,18 @@ protected:
 //-----------------------------------------------------------------------------
 // ListBox control
 //-----------------------------------------------------------------------------
+#define MAX_LISTBOX_COLUMNS         3
+#define MAX_LISTBOX_COLUMN_TEXT     128
+
 struct DXUTListBoxItem
 {
-    TCHAR strText[256];
-    void*  pData;
-
+    TCHAR strText[257];
+    TCHAR strColumnTexts[MAX_LISTBOX_COLUMNS][MAX_LISTBOX_COLUMN_TEXT+1];
+    int   nID;
     RECT  rcActive;
     bool  bSelected;
+    D3DCOLOR Color;
+    bool  bUnselect;
 };
 
 class CDXUTListBox : public CDXUTControl
@@ -612,13 +617,15 @@ public:
     virtual void Render( IDirect3DDevice9* pd3dDevice, float fElapsedTime );
     virtual void    UpdateRects();
 
+    void SetTextInColumn( int nIndex, int nColumn, TCHAR* wszText );
+
     DWORD GetStyle() const { return m_dwStyle; }
     int GetSize() const { return m_Items.GetSize(); }
     void SetStyle( DWORD dwStyle ) { m_dwStyle = dwStyle; }
     void SetScrollBarWidth( int nWidth ) { m_nSBWidth = nWidth; UpdateRects(); }
     void SetBorder( int nBorder, int nMargin ) { m_nBorder = nBorder; m_nMargin = nMargin; }
-    HRESULT AddItem( const TCHAR *wszText, void *pData );
-    HRESULT InsertItem( int nIndex, const TCHAR *wszText, void *pData );
+    HRESULT AddItem( const TCHAR *wszText, int nID, D3DCOLOR Color );
+    HRESULT InsertItem( int nIndex, const TCHAR *wszText, int nID, D3DCOLOR Color );
     void RemoveItem( int nIndex );
     void RemoveItemByText( TCHAR *wszText );
     void RemoveItemByData( void *pData );
@@ -632,6 +639,9 @@ public:
     enum STYLE { MULTISELECTION = 1 };
 
 protected:
+    int m_nNumOfColumns;
+    int m_nColumnWidth[MAX_LISTBOX_COLUMNS];
+
     RECT m_rcText;      // Text rendering bound
     RECT m_rcSelection; // Selection box bound
     CDXUTScrollBar m_ScrollBar;
