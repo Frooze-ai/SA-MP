@@ -1,11 +1,3 @@
-//----------------------------------------------------
-//
-//	HTTP/1.0 Client Procedures Header.
-//	(c) 2002-2005 Kye Bitossi
-//
-//  Version: $Id: httpclient.h,v 1.3 2006/03/20 17:44:19 kyeman Exp $
-//
-//----------------------------------------------------
 
 #define HTTP_GET			1
 #define HTTP_POST			2
@@ -13,7 +5,7 @@
 
 //----------------------------------------------------
 
-#define MAX_ENTITY_LENGTH	500000
+#define MAX_ENTITY_LENGTH	0x100000
 
 //----------------------------------------------------
 
@@ -33,8 +25,8 @@
 
 //----------------------------------------------------
 
-#define USER_AGENT  "SAMP/0.2.2"
-#define GET_FORMAT  "GET %s HTTP/1.0\r\nAccept: */*\r\nUser-Agent: %s\r\nReferer: http://%s\r\nHost: %s\r\n\r\n"
+#define USER_AGENT	"SAMP/0.3"
+#define GET_FORMAT	"GET %s HTTP/1.0\r\nAccept: */*\r\nUser-Agent: %s\r\nReferer: http://%s\r\nHost: %s\r\n\r\n" 
 #define POST_FORMAT "POST %s HTTP/1.0\r\nAccept: */*\r\nUser-Agent: %s\r\nReferer: http://%s\r\nHost: %s\r\nContent-type: application/x-www-form-urlencoded\r\nContent-length: %u\r\n\r\n%s"
 #define HEAD_FORMAT "HEAD %s HTTP/1.0\r\nAccept: */*\r\nUser-Agent: %s\r\nReferer: http://%s\r\nHost: %s\r\n\r\n"
 
@@ -42,12 +34,13 @@
 
 #pragma pack(1)
 typedef struct{
-	unsigned short port;	/* remote port */
-	int		rtype;			/* request type */
-	char *  host;			/* hostname */
-	char *	file;			/* GET/POST request file */
-	char *	data;			/* POST data (if rtype HTTP_POST) */
-	char *	referer;		/* http referer. */
+	unsigned short port;		/* remote port */
+	int		rtype;				/* request type */
+	char	host[257];			/* hostname */
+	char 	file[4097];			/* GET/POST request file */
+	char 	data[8193];			/* POST data (if rtype HTTP_POST) */
+	char 	referer[257];		/* http referer. */
+	char	request_head[16385];
 } HTTP_REQUEST;
 
 //----------------------------------------------------
@@ -69,16 +62,18 @@ class CHttpClient
 private:
 
 	int				m_iSocket;
+	int				m_iError;
 	HTTP_REQUEST	m_Request;
 	HTTP_RESPONSE	m_Response;
-	int				m_iError;
+	char			m_szBindAddress[257];
+	int				m_bHasBindAddress;
 
 	bool Connect(char *szHost, int iPort);
 	void CloseConnection();
 	bool Send(char *szData);
-	int  Recv(char *szBuffer, int iBufferSize);	
+	int  Recv(char *szBuffer, int iBufferSize);
 
-    void InitRequest(int iType, char *szURL, char *szPostData, char *szReferer);
+	void InitRequest(int iType, char *szURL, char *szPostData, char *szReferer);
 	void HandleEntity();
 
 	void Process();
@@ -93,8 +88,9 @@ public:
 	char *GetResponseHeaders() { return m_Response.header; };
 	char *GetDocument() { return m_Response.response; };
 	int GetDocumentLength() { return m_Response.response_len; };
+	int GetErrorCode() { return m_iError; };
 
-	CHttpClient();
+	CHttpClient(char *szBindAddress);
 	~CHttpClient();
 };
 
