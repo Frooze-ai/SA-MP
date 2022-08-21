@@ -314,6 +314,9 @@
     <ClCompile Include="..\raknet\TelnetTransport.cpp">
       <Filter>raknet</Filter>
     </ClCompile>
+    <ClCompile Include="scripthttps.cpp">
+      <Filter>scripting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
@@ -704,6 +707,9 @@
     </ClInclude>
     <ClInclude Include="..\raknet\Types.h">
       <Filter>raknet</Filter>
+    </ClInclude>
+    <ClInclude Include="scripthttps.h">
+      <Filter>scripting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

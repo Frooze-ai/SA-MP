@@ -171,6 +171,7 @@
     <ClCompile Include="runutil.cpp" />
     <ClCompile Include="scrcore.cpp" />
     <ClCompile Include="scrcustom.cpp" />
+    <ClCompile Include="scripthttps.cpp" />
     <ClCompile Include="scrtimers.cpp" />
     <ClCompile Include="signer.cpp" />
     <ClCompile Include="sqlite\sqlite3.c" />
@@ -310,6 +311,7 @@
     <ClInclude Include="rconrpc.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="runutil.h" />
+    <ClInclude Include="scripthttps.h" />
     <ClInclude Include="scrtimers.h" />
     <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="system.h" />

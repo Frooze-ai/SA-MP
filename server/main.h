@@ -117,6 +117,7 @@
 #include "../raknet/BitStream.h"
 #include "../raknet/PacketEnumerations.h"
 #include "../raknet/SAMPRPC.h"
+#include "../raknet/GetTime.h"
 
 // amx
 #include "amx/amx.h"
@@ -127,6 +128,7 @@ typedef unsigned short VEHICLEID;
 
 #include "system.h"
 #include "console.h"
+#include "scripthttps.h"
 #include "scrtimers.h"
 #include "gamemodes.h"
 #include "filterscripts.h"

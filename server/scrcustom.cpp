@@ -4196,6 +4196,34 @@ static cell AMX_NATIVE_CALL n_IsPlayerInRangeOfPoint(AMX *amx, cell *params)
 
 //----------------------------------------------------------------------------------
 
+// native HTTP(index, type, url[], data[], callback[]);
+static cell AMX_NATIVE_CALL n_HTTP(AMX *amx, cell *params)
+{
+	if(!pNetGame) return 0;
+
+	int iIndex = params[1];
+	int iType = params[2];
+	bool bSilent = false;
+
+	char *szURL;
+	char *szData;
+	char *szCallback;
+	amx_StrParam(amx, params[3], szURL);
+	amx_StrParam(amx, params[4], szData);
+	amx_StrParam(amx, params[5], szCallback);
+
+	if(szURL)
+	{
+		if(!szCallback || strlen(szCallback) == 0)
+			bSilent = true;
+
+		return pNetGame->GetHttps()->New(iIndex, iType, szURL, szData, NULL, bSilent, amx, szCallback);
+	}
+	return 0;
+}
+
+//----------------------------------------------------------------------------------
+
 AMX_NATIVE_INFO custom_Natives[] =
 {
 	// Util
@@ -4447,6 +4475,8 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "SetPlayerTime",			n_SetPlayerTime },
 	{ "TogglePlayerClock",		n_TogglePlayerClock },
 	{ "GetPlayerTime",			n_GetPlayerTime },
+
+	{ "HTTP",					n_HTTP },
 
 	{ NULL, NULL }
 };

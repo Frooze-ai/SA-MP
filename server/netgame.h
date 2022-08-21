@@ -65,11 +65,14 @@ private:
 	BOOL						m_bACEnabled;
 
 	void UpdateNetwork();
+
+	CScriptHttps* m_pScriptHttps;
 	CScriptTimers* m_pScriptTimers;
 	
 public:
 
 	CScriptTimers* GetTimers() { return m_pScriptTimers; };
+	CScriptHttps* GetHttps() { return m_pScriptHttps; };
 
 	bool m_bShowPlayerMarkers;
 	bool m_bShowNameTags;
@@ -180,6 +183,8 @@ public:
 	void SetGravity(float fGravity);
 	void UpdateInstagib();
 	const PCHAR GetWeaponName(int iWeaponID);
+
+	DWORD GetTime();
 };
 
 //----------------------------------------------------
