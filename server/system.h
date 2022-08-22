@@ -46,6 +46,15 @@ typedef struct _MATRIX4X4 {
 	float  pad_p;
 } MATRIX4X4, *PMATRIX4X4;
 
+#pragma pack(1)
+typedef struct _OBJECT_EDIT_DATA { // TODO: move this elsewhere?
+	int iModelID;
+	int iBoneID;
+	VECTOR vecOffset;
+	VECTOR vecRotation;
+	VECTOR vecScale;
+} OBJECT_EDIT_DATA;
+
 //----------------------------------------------------
 
 #ifdef _WIN32

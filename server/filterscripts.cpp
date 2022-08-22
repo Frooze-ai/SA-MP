@@ -1,14 +1,3 @@
-/*
-
-	SA:MP Multiplayer Modification
-	Copyright 2004-2006 SA:MP Team
-
-	file:
-		filterscripts.cpp
-	desc:
-		FilterScript Event Executive.
-
-*/
 
 #include "main.h"
 
@@ -491,7 +480,7 @@ int CFilterScripts::OnPlayerText(cell playerid, unsigned char* szText)
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerPrivmsg(playerid, toplayerid, text[]);
-int CFilterScripts::OnPlayerPrivmsg(cell playerid, cell toplayerid, unsigned char* szText)
+/*int CFilterScripts::OnPlayerPrivmsg(cell playerid, cell toplayerid, unsigned char* szText)
 {
 	int idx;
 	cell ret = 1;	// DEFAULT TO 1!
@@ -516,12 +505,12 @@ int CFilterScripts::OnPlayerPrivmsg(cell playerid, cell toplayerid, unsigned cha
 		}
 	}
 	return (int)ret;
-}
+}*/
 
 //----------------------------------------------------------------------------------
 
 // forward OnPlayerTeamPrivmsg(playerid, text[]);
-int CFilterScripts::OnPlayerTeamPrivmsg(cell playerid, unsigned char* szText)
+/*int CFilterScripts::OnPlayerTeamPrivmsg(cell playerid, unsigned char* szText)
 {
 	int idx;
 	cell ret = 1;	// DEFAULT TO 1!
@@ -545,7 +534,7 @@ int CFilterScripts::OnPlayerTeamPrivmsg(cell playerid, unsigned char* szText)
 		}
 	}
 	return (int)ret;
-}
+}*/
 
 //----------------------------------------------------------------------------------
 
@@ -1055,6 +1044,32 @@ int CFilterScripts::OnVehicleMod(cell playerid, cell vehicleid, cell componentid
 
 //----------------------------------------------------------------------------------
 
+// forward OnEnterExitModShop(playerid, enterexit, interiorid);
+int CFilterScripts::OnEnterExitModShop(cell playerid, cell enterexit, cell interiorid)
+{
+	int idx;
+	cell ret = 1;
+	int retval = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnEnterExitModShop", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], interiorid);
+				amx_Push(m_pFilterScripts[i], enterexit);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (!ret) retval = 0;
+			}
+		}
+	}
+	return retval;
+}
+
+//----------------------------------------------------------------------------------
+
 // forward OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 int CFilterScripts::OnVehiclePaintjob(cell playerid, cell vehicleid, cell paintjobid)
 {
@@ -1071,6 +1086,57 @@ int CFilterScripts::OnVehiclePaintjob(cell playerid, cell vehicleid, cell paintj
 				amx_Push(m_pFilterScripts[i], vehicleid);
 				amx_Push(m_pFilterScripts[i], playerid);
 				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnScriptCash(playerid, amount, type);
+int CFilterScripts::OnScriptCash(cell playerid, cell amount, cell type)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnScriptCash", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], type);
+				amx_Push(m_pFilterScripts[i], amount);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnRconLoginAttempt(ip[], password[], success);
+int CFilterScripts::OnRconLoginAttempt(char* ip, char* password, cell success)
+{
+	int idx;
+	cell ret;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnRconLoginAttempt", &idx))
+			{
+				cell amx_addr1, amx_addr2, *amx_phys;
+				amx_Push(m_pFilterScripts[i], success);
+				amx_PushString(m_pFilterScripts[i], &amx_addr1, &amx_phys, password, 0, 0);
+				amx_PushString(m_pFilterScripts[i], &amx_addr2, &amx_phys, ip, 0, 0);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				amx_Release(m_pFilterScripts[i], amx_addr1);
+				amx_Release(m_pFilterScripts[i], amx_addr2);
 			}
 		}
 	}
@@ -1101,12 +1167,591 @@ int CFilterScripts::OnPlayerUpdate(cell playerid)
 
 //----------------------------------------------------------------------------------
 
-int CFilterScripts::OnIncomingConnection(cell playerid, char* ip_address, cell port)
+// forward OnPlayerStreamIn(playerid, forplayerid);
+int CFilterScripts::OnPlayerStreamIn(cell playerid, cell forplayerid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerStreamIn", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], forplayerid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerStreamOut(playerid, forplayerid);
+int CFilterScripts::OnPlayerStreamOut(cell playerid, cell forplayerid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerStreamOut", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], forplayerid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnVehicleStreamIn(vehicleid, forplayerid);
+int CFilterScripts::OnVehicleStreamIn(cell vehicleid, cell forplayerid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnVehicleStreamIn", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], forplayerid);
+				amx_Push(m_pFilterScripts[i], vehicleid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnVehicleStreamOut(vehicleid, forplayerid);
+int CFilterScripts::OnVehicleStreamOut(cell vehicleid, cell forplayerid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnVehicleStreamOut", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], forplayerid);
+				amx_Push(m_pFilterScripts[i], vehicleid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnActorStreamIn(actorid, forplayerid);
+int CFilterScripts::OnActorStreamIn(cell actorid, cell forplayerid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnActorStreamIn", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], forplayerid);
+				amx_Push(m_pFilterScripts[i], actorid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnActorStreamOut(actorid, forplayerid);
+int CFilterScripts::OnActorStreamOut(cell actorid, cell forplayerid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnActorStreamOut", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], forplayerid);
+				amx_Push(m_pFilterScripts[i], actorid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
+int CFilterScripts::OnDialogResponse(cell playerid, cell dialogid, cell response, cell listitem, char* inputtext)
 {
 	int idx;
 	cell ret = 0;
 
-	int orig_strlen = strlen((char*)ip_address) + 1;
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnDialogResponse", &idx))
+			{
+				cell amx_addr, *amx_phys;
+				amx_PushString(m_pFilterScripts[i], &amx_addr, &amx_phys, inputtext, 0, 0);
+				amx_Push(m_pFilterScripts[i], listitem);
+				amx_Push(m_pFilterScripts[i], response);
+				amx_Push(m_pFilterScripts[i], dialogid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerClickPlayer(playerid, clickedplayerid, source);
+int CFilterScripts::OnPlayerClickPlayer(cell playerid, cell clickedplayerid, cell source)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerClickPlayer", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], source);
+				amx_Push(m_pFilterScripts[i], clickedplayerid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart);
+int CFilterScripts::OnPlayerTakeDamage(cell playerid, cell issuerid, float amount, cell weaponid, cell bodypart)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerTakeDamage", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], bodypart);
+				amx_Push(m_pFilterScripts[i], weaponid);
+				amx_Push(m_pFilterScripts[i], amx_ftoc(amount));
+				amx_Push(m_pFilterScripts[i], issuerid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart);
+int CFilterScripts::OnPlayerGiveDamage(cell playerid, cell damagedid, float amount, cell weaponid, cell bodypart)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerGiveDamage", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], bodypart);
+				amx_Push(m_pFilterScripts[i], weaponid);
+				amx_Push(m_pFilterScripts[i], amx_ftoc(amount));
+				amx_Push(m_pFilterScripts[i], damagedid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, weaponid, bodypart);
+int CFilterScripts::OnPlayerGiveDamageActor(cell playerid, cell damaged_actorid, float amount, cell weaponid, cell bodypart)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerGiveDamageActor", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], bodypart);
+				amx_Push(m_pFilterScripts[i], weaponid);
+				amx_Push(m_pFilterScripts[i], amx_ftoc(amount));
+				amx_Push(m_pFilterScripts[i], damaged_actorid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnVehicleDamageStatusUpdate(vehicleid, playerid);
+int CFilterScripts::OnVehicleDamageStatusUpdate(cell vehicleid, cell playerid)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnVehicleDamageStatusUpdate", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Push(m_pFilterScripts[i], vehicleid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);
+int CFilterScripts::OnUnoccupiedVehicleUpdate(cell vehicleid, cell playerid, cell passenger_seat, VECTOR* vecPos, VECTOR* vecVelocity)
+{
+	int idx;
+	cell ret = 1;
+
+	cell vel_x = amx_ftoc(vecVelocity->X);
+	cell vel_y = amx_ftoc(vecVelocity->Y);
+	cell vel_z = amx_ftoc(vecVelocity->Z);
+	cell new_x = amx_ftoc(vecPos->X);
+	cell new_y = amx_ftoc(vecPos->Y);
+	cell new_z = amx_ftoc(vecPos->Z);
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnUnoccupiedVehicleUpdate", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], vel_z);
+				amx_Push(m_pFilterScripts[i], vel_y);
+				amx_Push(m_pFilterScripts[i], vel_x);
+				amx_Push(m_pFilterScripts[i], new_z);
+				amx_Push(m_pFilterScripts[i], new_y);
+				amx_Push(m_pFilterScripts[i], new_x);
+				amx_Push(m_pFilterScripts[i], passenger_seat);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Push(m_pFilterScripts[i], vehicleid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (!ret) return ret;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ);
+int CFilterScripts::OnPlayerClickMap(cell playerid, float fX, float fY, float fZ)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerClickMap", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fZ));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fY));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fX));
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
+// Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ,
+// Float:fRotX, Float:fRotY, Float:fRotZ,
+// Float:fScaleX, Float:fScaleY, Float:fScaleZ );
+int CFilterScripts::OnPlayerEditAttachedObject(cell playerid, cell index, cell response, OBJECT_EDIT_DATA* pEditData)
+{
+	int idx;
+	cell ret = 0;
+
+	cell offset_x = amx_ftoc(pEditData->vecOffset.X);
+	cell offset_y = amx_ftoc(pEditData->vecOffset.Y);
+	cell offset_z = amx_ftoc(pEditData->vecOffset.Z);
+	cell rot_x = amx_ftoc(pEditData->vecRotation.X);
+	cell rot_y = amx_ftoc(pEditData->vecRotation.Y);
+	cell rot_z = amx_ftoc(pEditData->vecRotation.Z);
+	cell scale_x = amx_ftoc(pEditData->vecScale.X);
+	cell scale_y = amx_ftoc(pEditData->vecScale.Y);
+	cell scale_z = amx_ftoc(pEditData->vecScale.Z);
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerEditAttachedObject", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], scale_z);
+				amx_Push(m_pFilterScripts[i], scale_y);
+				amx_Push(m_pFilterScripts[i], scale_x);
+				amx_Push(m_pFilterScripts[i], rot_z);
+				amx_Push(m_pFilterScripts[i], rot_y);
+				amx_Push(m_pFilterScripts[i], rot_x);
+				amx_Push(m_pFilterScripts[i], offset_z);
+				amx_Push(m_pFilterScripts[i], offset_y);
+				amx_Push(m_pFilterScripts[i], offset_x);
+				amx_Push(m_pFilterScripts[i], pEditData->iBoneID);
+				amx_Push(m_pFilterScripts[i], pEditData->iModelID);
+				amx_Push(m_pFilterScripts[i], index);
+				amx_Push(m_pFilterScripts[i], response);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerEditObject( playerid, playerobject, objectid, response, 
+// Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ );
+int CFilterScripts::OnPlayerEditObject(cell playerid, cell playerobject, cell objectid, cell response,
+	float fX, float fY, float fZ,
+	float fRotX, float fRotY, float fRotZ)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerEditObject", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fRotZ));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fRotY));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fRotX));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fZ));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fY));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fX));
+				amx_Push(m_pFilterScripts[i], response);
+				amx_Push(m_pFilterScripts[i], objectid);
+				amx_Push(m_pFilterScripts[i], playerobject);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerSelectObject(playerid, type, objectid, modelid, Float:fX, Float:fY, Float:fZ);
+int CFilterScripts::OnPlayerSelectObject(cell playerid, cell type, cell objectid, cell modelid, float fX, float fY, float fZ)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerSelectObject", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fZ));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fY));
+				amx_Push(m_pFilterScripts[i], amx_ftoc(fX));
+				amx_Push(m_pFilterScripts[i], modelid);
+				amx_Push(m_pFilterScripts[i], objectid);
+				amx_Push(m_pFilterScripts[i], type);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerClickTextDraw(playerid, Text:clickedid);
+int CFilterScripts::OnPlayerClickTextDraw(cell playerid, cell clickedid)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerClickTextDraw", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], clickedid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid);
+int CFilterScripts::OnPlayerClickPlayerTextDraw(cell playerid, cell playertextid)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerClickPlayerTextDraw", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], playertextid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnClientCheckResponse(playerid, type, addr, result);
+int CFilterScripts::OnClientCheckResponse(cell playerid, cell type, cell addr, cell result)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnClientCheckResponse", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], result);
+				amx_Push(m_pFilterScripts[i], addr);
+				amx_Push(m_pFilterScripts[i], type);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+int CFilterScripts::OnPlayerWeaponShot(cell playerid, cell weaponid, cell hittype, cell hitid, VECTOR* vecPos)
+{
+	int idx;
+	cell ret = 1;
+
+	cell x = amx_ftoc(vecPos->X);
+	cell y = amx_ftoc(vecPos->Y);
+	cell z = amx_ftoc(vecPos->Z);
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnPlayerWeaponShot", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], z);
+				amx_Push(m_pFilterScripts[i], y);
+				amx_Push(m_pFilterScripts[i], x);
+				amx_Push(m_pFilterScripts[i], hitid);
+				amx_Push(m_pFilterScripts[i], hittype);
+				amx_Push(m_pFilterScripts[i], weaponid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+				if (!ret) return ret;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnIncomingConnection(playerid, ip_address[], port);
+int CFilterScripts::OnIncomingConnection(cell playerid, char* ip_address, cell port)
+{
+	int idx;
+	cell ret = 0;
 
 	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
 	{
@@ -1114,13 +1759,60 @@ int CFilterScripts::OnIncomingConnection(cell playerid, char* ip_address, cell p
 		{
 			if (!amx_FindPublic(m_pFilterScripts[i], "OnIncomingConnection", &idx))
 			{
-				cell amx_addr, *phys_addr;
+				cell amx_addr, * amx_phys;
 				amx_Push(m_pFilterScripts[i], port);
-				amx_PushString(m_pFilterScripts[i], &amx_addr, &phys_addr, (char*)ip_address, 0, 0);
+				amx_PushString(m_pFilterScripts[i], &amx_addr, &amx_phys, ip_address, 0, 0);
 				amx_Push(m_pFilterScripts[i], playerid);
 				amx_Exec(m_pFilterScripts[i], &ret, idx);
 				amx_Release(m_pFilterScripts[i], amx_addr);
 				if (ret) return 1;
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnTrailerUpdate(playerid, vehicleid);
+int CFilterScripts::OnTrailerUpdate(cell playerid, cell vehicleid)
+{
+	int idx;
+	cell ret = 1;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnTrailerUpdate", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], vehicleid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
+			}
+		}
+	}
+	return (int)ret;
+}
+
+//----------------------------------------------------------------------------------
+
+// forward OnVehicleSirenStateChange(playerid, vehicleid, newstate);
+int CFilterScripts::OnVehicleSirenStateChange(cell playerid, cell vehicleid, cell newstate)
+{
+	int idx;
+	cell ret = 0;
+
+	for (int i=0; i<MAX_FILTER_SCRIPTS; i++)
+	{
+		if (m_pFilterScripts[i])
+		{
+			if (!amx_FindPublic(m_pFilterScripts[i], "OnVehicleSirenStateChange", &idx))
+			{
+				amx_Push(m_pFilterScripts[i], newstate);
+				amx_Push(m_pFilterScripts[i], vehicleid);
+				amx_Push(m_pFilterScripts[i], playerid);
+				amx_Exec(m_pFilterScripts[i], &ret, idx);
 			}
 		}
 	}
