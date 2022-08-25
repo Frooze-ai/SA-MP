@@ -53,6 +53,9 @@ native Float:acos(Float:value);
 native Float:atan(Float:value);
 native Float:atan2(Float:x, Float:y);
 
+// Hash
+native SHA256_PassHash(password[], salt[], ret_hash[], ret_hash_len); // SHA256 for password hashing
+
 // Game
 native SetGameModeText(const string[]);
 native SetTeamCount(count);

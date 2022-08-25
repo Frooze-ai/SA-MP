@@ -20,6 +20,7 @@
 char* format_amxstring(AMX *amx, cell *params, int parm, int &len);
 int set_amxstring(AMX *amx,cell amx_addr,const char *source,int max);
 bool ContainsInvalidNickChars(PCHAR szString);
+void sha256(char* data, char* salt, char* result, int len);
 
 extern BOOL bGameModeFinished;
 extern CNetGame* pNetGame;
@@ -2595,6 +2596,23 @@ static cell AMX_NATIVE_CALL n_atan2(AMX *amx, cell *params)
 }
 
 //----------------------------------------------------
+// native SHA256_PassHash(password[], salt[], ret_hash[], ret_hash_len);
+static cell AMX_NATIVE_CALL n_SHA256_PassHash(AMX *amx, cell *params)
+{
+	char* szPassword;
+	char* szSalt;
+	amx_StrParam(amx, params[1], szPassword);
+	amx_StrParam(amx, params[2], szSalt);
+
+	if(!szPassword) szPassword = "";
+	if(!szSalt) szSalt = "";
+
+	char szResult[65];
+	sha256(szPassword, szSalt, szResult, 65);
+	return set_amxstring(amx, params[3], szResult, params[4]);
+}
+
+//----------------------------------------------------
 // native SetGravity(gravity)
 
 static cell AMX_NATIVE_CALL n_SetGravity(AMX *amx, cell *params)
@@ -4245,6 +4263,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "acos",					n_acos },
 	{ "atan2",					n_atan2 },
 	{ "atan",					n_atan },
+	
+	// Hash
+	{ "SHA256_PassHash",		n_SHA256_PassHash },
 	
 	// Game
 	{ "GameModeExit",			n_GameModeExit },

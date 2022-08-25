@@ -317,6 +317,9 @@
     <ClCompile Include="scripthttps.cpp">
       <Filter>scripting</Filter>
     </ClCompile>
+    <ClCompile Include="sha256.cpp">
+      <Filter>scripting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
@@ -709,6 +712,9 @@
       <Filter>raknet</Filter>
     </ClInclude>
     <ClInclude Include="scripthttps.h">
+      <Filter>scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="sha256.h">
       <Filter>scripting</Filter>
     </ClInclude>
   </ItemGroup>

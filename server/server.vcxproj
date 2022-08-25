@@ -173,6 +173,7 @@
     <ClCompile Include="scrcustom.cpp" />
     <ClCompile Include="scripthttps.cpp" />
     <ClCompile Include="scrtimers.cpp" />
+    <ClCompile Include="sha256.cpp" />
     <ClCompile Include="signer.cpp" />
     <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="sqlite\sqlite_amx.c" />
@@ -313,6 +314,7 @@
     <ClInclude Include="runutil.h" />
     <ClInclude Include="scripthttps.h" />
     <ClInclude Include="scrtimers.h" />
+    <ClInclude Include="sha256.h" />
     <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="textdrawpool.h" />
