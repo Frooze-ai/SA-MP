@@ -184,7 +184,7 @@ void Chat(RPCParameters *rpcParams)
 //----------------------------------------------------
 // Sent by client with private message text
 
-void Privmsg(RPCParameters *rpcParams)
+/*void Privmsg(RPCParameters* rpcParams)
 {
 	PCHAR Data = reinterpret_cast<PCHAR>(rpcParams->input);
 	int iBitLength = rpcParams->numberOfBitsOfData;
@@ -216,9 +216,9 @@ void Privmsg(RPCParameters *rpcParams)
 		szText);
 
 #ifdef RAKRCON
-	/*char szPm[255];
+	/ *char szPm[255];
 	sprintf(szPm, "*** PM from %s to %s: %s.", pPool->GetPlayerName(pRak->GetIndexFromPlayerID(sender)), pPool->GetPlayerName(byteToPlayerID), szText);
-	pRcon->SendEventString(szPm);*/
+	pRcon->SendEventString(szPm);* /
 
 	RakNet::BitStream bsSend;
 
@@ -248,12 +248,12 @@ void Privmsg(RPCParameters *rpcParams)
 			pPlayer->Privmsg(byteToPlayerID, szText,byteTextLen);
 		}	
 	}
-}
+}*/
 
 //----------------------------------------------------
 // Sent by client with team chat text
 
-void TeamPrivmsg(RPCParameters *rpcParams)
+/*void TeamPrivmsg(RPCParameters* rpcParams)
 {
 	PCHAR Data = reinterpret_cast<PCHAR>(rpcParams->input);
 	int iBitLength = rpcParams->numberOfBitsOfData;
@@ -309,7 +309,7 @@ void TeamPrivmsg(RPCParameters *rpcParams)
 			pPlayer->TeamPrivmsg(szText,byteTextLen);
 		}	
 	}
-}
+}*/
 
 //----------------------------------------------------
 // Sent by client who wishes to request a class from
@@ -897,8 +897,8 @@ void RegisterRPCs(RakServerInterface * pRakServer)
 
 	REGISTER_STATIC_RPC(pRakServer, ClientJoin);
 	REGISTER_STATIC_RPC(pRakServer, Chat);
-	REGISTER_STATIC_RPC(pRakServer, Privmsg);
-	REGISTER_STATIC_RPC(pRakServer, TeamPrivmsg);
+	//REGISTER_STATIC_RPC(pRakServer, Privmsg);
+	//REGISTER_STATIC_RPC(pRakServer, TeamPrivmsg);
 	REGISTER_STATIC_RPC(pRakServer, RequestClass);
 	REGISTER_STATIC_RPC(pRakServer, RequestSpawn);
 	REGISTER_STATIC_RPC(pRakServer, Spawn);
