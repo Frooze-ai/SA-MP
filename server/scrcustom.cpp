@@ -2140,23 +2140,34 @@ static cell AMX_NATIVE_CALL n_LimitGlobalChatRadius(AMX *amx, cell *params)
 // native GetVehicleZAngle(vehicleid, &Float:z_angle)
 static cell AMX_NATIVE_CALL n_GetVehicleZAngle(AMX *amx, cell *params)
 {
-	CHECK_PARAMS(2);
+	//CHECK_PARAMS(2);
+
+	CVehiclePool* pVehiclePool = pNetGame->GetVehiclePool();
+	if(!pVehiclePool) return 0;
 
 	CVehicle* pVehicle = pNetGame->GetVehiclePool()->GetAt((VEHICLEID)params[1]);
 
 	if (pVehicle)
 	{
+		cell* cptr;
+		amx_GetAddr(amx, params[2], &cptr);
+
+		if (pVehicle->m_matWorld.up.X == 0.0 && pVehicle->m_matWorld.up.Y == 0.0)
+		{
+			*cptr = amx_ftoc(pVehicle->m_SpawnInfo.fRotation);
+			return 1;
+		}
+
 		float fZAngle = atan2(-pVehicle->m_matWorld.up.X, pVehicle->m_matWorld.up.Y) * 180.0f/PI;
 		
 		// Bound it to [0, 360)
-		while(fZAngle < 0.0f) 
+		if (fZAngle < 0.0)
 			fZAngle += 360.0f;
-		while(fZAngle >= 360.0f) 
+		else if (fZAngle >= 360.0f)
 			fZAngle -= 360.0f;
-		
-		cell* cptr;
-		amx_GetAddr(amx, params[2], &cptr);
+
 		*cptr = amx_ftoc(fZAngle);
+
 		return 1;
 	} else {
 		return 0;
