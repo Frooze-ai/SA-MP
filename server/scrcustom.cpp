@@ -2578,6 +2578,27 @@ static cell AMX_NATIVE_CALL n_SetPlayerWeather(AMX *amx, cell *params)
 
 //----------------------------------------------------------------------------------
 
+// TODO: Move VectorSize elsewhere?
+float VectorSize(VECTOR* p)
+{
+	return (float)sqrt((p->X * p->X) + (p->Y * p->Y) + (p->Z * p->Z));
+}
+
+static cell AMX_NATIVE_CALL n_VectorSize(AMX *amx, cell *params)
+{
+	VECTOR v;
+
+	v.X = amx_ctof(params[1]);
+	v.Y = amx_ctof(params[2]);
+	v.Z = amx_ctof(params[3]);
+
+	float fResult = VectorSize(&v);
+
+	return amx_ftoc(fResult);
+}
+
+//----------------------------------------------------------------------------------
+
 static cell AMX_NATIVE_CALL n_asin(AMX *amx, cell *params)
 {
 	CHECK_PARAMS(1);
@@ -4270,6 +4291,7 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "SetPlayerWeather",		n_SetPlayerWeather },
 	{ "CallRemoteFunction",		n_CallRemoteFunction },
 	{ "CallLocalFunction",		n_CallLocalFunction },
+	{ "VectorSize",				n_VectorSize },
 	{ "asin",					n_asin },
 	{ "acos",					n_acos },
 	{ "atan2",					n_atan2 },
