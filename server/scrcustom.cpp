@@ -21,6 +21,7 @@ char* format_amxstring(AMX *amx, cell *params, int parm, int &len);
 int set_amxstring(AMX *amx,cell amx_addr,const char *source,int max);
 bool ContainsInvalidNickChars(PCHAR szString);
 void sha256(char* data, char* salt, char* result, int len);
+VECTOR* GetVehicleModelInfo(int iVehicleType, int iInfoType);
 
 extern BOOL bGameModeFinished;
 extern CNetGame* pNetGame;
@@ -184,6 +185,31 @@ static cell AMX_NATIVE_CALL n_LinkVehicleToInterior(AMX *amx, cell *params)
 		RakServerInterface* pRak = pNetGame->GetRakServer();
 		pRak->RPC(RPC_ScrLinkVehicle , &bsData, HIGH_PRIORITY, 
 			RELIABLE, 0, UNASSIGNED_PLAYER_ID, true, false);
+		return 1;
+	}
+	return 0;
+}
+
+//----------------------------------------------------------------------------------
+// native GetVehicleModelInfo(vehiclemodel, infotype, &Float:X, &Float:Y, &Float:Z);
+static cell AMX_NATIVE_CALL n_GetVehicleModelInfo(AMX *amx, cell *params)
+{
+	int iVehicleType = (int)params[1];
+	
+	if(iVehicleType < 400 || iVehicleType > 611) return 0;
+
+	VECTOR* pInfo = GetVehicleModelInfo(iVehicleType, params[2]);
+	if (pInfo != NULL)
+	{
+		cell* cptr;
+
+		amx_GetAddr(amx, params[3], &cptr);
+		*cptr = amx_ftoc(pInfo->X);
+		amx_GetAddr(amx, params[4], &cptr);
+		*cptr = amx_ftoc(pInfo->Y);
+		amx_GetAddr(amx, params[5], &cptr);
+		*cptr = amx_ftoc(pInfo->Z);
+
 		return 1;
 	}
 	return 0;
@@ -4445,6 +4471,7 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "SetVehicleZAngle",		n_SetVehicleZAngle },
 	{ "SetVehicleParamsForPlayer",	n_SetVehicleParamsForPlayer },
 	{ "SetVehicleToRespawn",	n_SetVehicleToRespawn },
+	{ "GetVehicleModelInfo",	n_GetVehicleModelInfo },
 	{ "AddVehicleComponent",	n_AddVehicleComponent },
 	{ "RemoveVehicleComponent",	n_RemoveVehicleComponent },
 	{ "ChangeVehicleColor",		n_ChangeVehicleColor },

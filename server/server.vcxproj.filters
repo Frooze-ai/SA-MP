@@ -320,6 +320,7 @@
     <ClCompile Include="sha256.cpp">
       <Filter>scripting</Filter>
     </ClCompile>
+    <ClCompile Include="vehmodelinfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
