@@ -41,7 +41,7 @@ official version.
   - Make sure `Desktop development with C++` workload is checked, and in the `Optional` list also make sure `C++ ATL for latest v143 build tools (x86 & x64)` and `C++ MFC for latest v143 build tools (x86 & x64)` also checked.
 - Borland Delphi 7
   - Only required for building `exgui`, the SA-MP server browser 
-- [optional] IDA Pro 6.8
+- [optional] IDA Free v8.2
   - For viewing `*.idb` files in the `idb` folder.
 
 These requirements are only for building Windows binaries. Building on Linux is currently not supported.
